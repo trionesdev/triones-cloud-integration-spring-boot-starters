@@ -2,8 +2,6 @@ package com.moensun.spring.boot.cloud.integration.aliyun.sms;
 
 import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.teaopenapi.models.Config;
-import com.aliyuncs.DefaultAcsClient;
-import com.aliyuncs.profile.DefaultProfile;
 import com.moensun.cloud.integration.aliyun.sms.AliYunSms;
 import com.moensun.cloud.integration.aliyun.sms.AliYunSmsConfig;
 import com.moensun.cloud.integration.api.sms.SmsException;
