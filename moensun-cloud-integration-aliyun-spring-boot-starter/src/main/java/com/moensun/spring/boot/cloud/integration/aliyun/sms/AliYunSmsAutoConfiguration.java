@@ -1,10 +1,14 @@
 package com.moensun.spring.boot.cloud.integration.aliyun.sms;
 
+import com.aliyun.dysmsapi20170525.Client;
+import com.aliyun.teaopenapi.models.Config;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.profile.DefaultProfile;
 import com.moensun.cloud.integration.aliyun.sms.AliYunSms;
 import com.moensun.cloud.integration.aliyun.sms.AliYunSmsConfig;
+import com.moensun.cloud.integration.api.sms.SmsException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
@@ -22,6 +26,7 @@ import org.springframework.core.env.Environment;
 
 import java.util.Map;
 
+@Slf4j
 @RequiredArgsConstructor
 @Configuration
 @ConditionalOnProperty(prefix = "aliyun.sms", value = {"enabled"}, havingValue = "true")
@@ -31,33 +36,44 @@ public class AliYunSmsAutoConfiguration implements EnvironmentAware, BeanFactory
     private AliYunSmsConfProperties aliYunSmsConfProperties;
 
     @Override
-    public void postProcessBeanFactory( ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) configurableListableBeanFactory;
         Map<String, AliYunSmsInstanceProperties> instancesMap = aliYunSmsConfProperties.getInstance();
         if (MapUtils.isEmpty(instancesMap)) {
-            DefaultProfile profile = DefaultProfile.getProfile(aliYunSmsConfProperties.getRegionId(), aliYunSmsConfProperties.getAccessKeyId(), aliYunSmsConfProperties.getAccessKeySecret());
-            AliYunSmsConfig aliYunSmsConfig = AliYunSmsConfig.builder()
-                    .regionId(aliYunSmsConfProperties.getRegionId())
-                    .signName(aliYunSmsConfProperties.getSignName())
-                    .templateCodes(aliYunSmsConfProperties.getTemplateCodes())
-                    .build();
-            ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
-            argumentValues.addIndexedArgumentValue(0, new DefaultAcsClient(profile));
-            argumentValues.addIndexedArgumentValue(1, aliYunSmsConfig);
-            registerBean(beanFactory, argumentValues, AliYunSms.class.getName());
+            try {
+                Config config = new Config().setAccessKeyId(aliYunSmsConfProperties.getAccessKeyId()).setAccessKeySecret(aliYunSmsConfProperties.getAccessKeySecret());
+                AliYunSmsConfig aliYunSmsConfig = AliYunSmsConfig.builder()
+                        .regionId(aliYunSmsConfProperties.getRegionId())
+                        .signName(aliYunSmsConfProperties.getSignName())
+                        .templateCodes(aliYunSmsConfProperties.getTemplateCodes())
+                        .build();
+                ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
+                argumentValues.addIndexedArgumentValue(0, new Client(config));
+                argumentValues.addIndexedArgumentValue(1, aliYunSmsConfig);
+                registerBean(beanFactory, argumentValues, AliYunSms.class.getName());
+            } catch (Exception ex) {
+                log.error(ex.getMessage(), ex);
+                throw new SmsException(ex);
+            }
         } else {
             instancesMap.forEach((k, v) -> {
-                DefaultProfile profile = DefaultProfile.getProfile(v.getRegionId(), v.getAccessKeyId(), v.getAccessKeySecret());
-                AliYunSmsConfig aliYunSmsConfig = AliYunSmsConfig.builder()
-                        .regionId(v.getRegionId())
-                        .signName(v.getSignName())
-                        .templateCodes(v.getTemplateCodes())
-                        .build();
-                String baneName = StringUtils.isBlank(v.getName()) ? k : v.getName();
-                ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
-                argumentValues.addIndexedArgumentValue(0, new DefaultAcsClient(profile));
-                argumentValues.addIndexedArgumentValue(1, aliYunSmsConfig);
-                registerBean(beanFactory, argumentValues, baneName);
+//                DefaultProfile profile = DefaultProfile.getProfile(v.getRegionId(), v.getAccessKeyId(), v.getAccessKeySecret());
+                try {
+                    Config config = new Config().setAccessKeyId(v.getAccessKeyId()).setAccessKeySecret(v.getAccessKeySecret());
+                    AliYunSmsConfig aliYunSmsConfig = AliYunSmsConfig.builder()
+                            .regionId(v.getRegionId())
+                            .signName(v.getSignName())
+                            .templateCodes(v.getTemplateCodes())
+                            .build();
+                    String baneName = StringUtils.isBlank(v.getName()) ? k : v.getName();
+                    ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
+                    argumentValues.addIndexedArgumentValue(0, new Client(config));
+                    argumentValues.addIndexedArgumentValue(1, aliYunSmsConfig);
+                    registerBean(beanFactory, argumentValues, baneName);
+                } catch (Exception ex) {
+                    log.error(ex.getMessage(), ex);
+                    throw new SmsException(ex);
+                }
             });
         }
     }
