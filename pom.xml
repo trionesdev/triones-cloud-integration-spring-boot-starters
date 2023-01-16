@@ -120,7 +120,7 @@
     <repositories>
         <repository>
             <id>ms-repository</id>
-            <url>http://nexus.moensun.com/repository/maven-public/</url>
+            <url>https://nexus.moensun.com/repository/maven-public/</url>
             <layout>default</layout>
             <releases>
                 <enabled>true</enabled>
