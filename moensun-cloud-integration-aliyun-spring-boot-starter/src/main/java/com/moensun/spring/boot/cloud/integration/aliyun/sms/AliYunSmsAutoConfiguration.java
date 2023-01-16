@@ -55,7 +55,6 @@ public class AliYunSmsAutoConfiguration implements EnvironmentAware, BeanFactory
             }
         } else {
             instancesMap.forEach((k, v) -> {
-//                DefaultProfile profile = DefaultProfile.getProfile(v.getRegionId(), v.getAccessKeyId(), v.getAccessKeySecret());
                 try {
                     Config config = new Config().setAccessKeyId(v.getAccessKeyId()).setAccessKeySecret(v.getAccessKeySecret());
                     AliYunSmsConfig aliYunSmsConfig = AliYunSmsConfig.builder()
