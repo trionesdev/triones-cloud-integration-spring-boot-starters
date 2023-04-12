@@ -1,7 +1,7 @@
 package com.moensun.spring.boot.cloud.integration.tencentcloud.cos;
 
-import com.moensun.spring.boot.cloud.integration.tencentcloud.cos.annotations.EnableCOSClients;
-import com.moensun.spring.boot.cloud.integration.tencentcloud.cos.annotations.COSClient;
+import com.moensun.spring.boot.cloud.integration.tencentcloud.cos.annotations.EnableTencentCloudCOSClients;
+import com.moensun.spring.boot.cloud.integration.tencentcloud.cos.annotations.TencentCloudCOSClient;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.annotation.AnnotatedGenericBeanDefinition;
 import org.springframework.beans.factory.config.*;
@@ -47,12 +47,12 @@ public class TencentCloudCOSClientRegister implements ImportBeanDefinitionRegist
 
     private void registerCOSClients(AnnotationMetadata metadata, BeanDefinitionRegistry registry) {
         LinkedHashSet<BeanDefinition> candidateComponents = new LinkedHashSet<>();
-        Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableCOSClients.class.getName());
+        Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableTencentCloudCOSClients.class.getName());
         final Class<?>[] channels = attrs == null ? null : (Class<?>[]) attrs.get("clients");
         if (channels == null || channels.length == 0) {
             ClassPathScanningCandidateComponentProvider scanner = getScanner();
             scanner.setResourceLoader(this.resourceLoader);
-            scanner.addIncludeFilter(new AnnotationTypeFilter(COSClient.class));
+            scanner.addIncludeFilter(new AnnotationTypeFilter(TencentCloudCOSClient.class));
             Set<String> basePackages = getBasePackages(metadata);
             for (String basePackage : basePackages) {
                 candidateComponents.addAll(scanner.findCandidateComponents(basePackage));
@@ -68,7 +68,7 @@ public class TencentCloudCOSClientRegister implements ImportBeanDefinitionRegist
                 AnnotatedBeanDefinition beanDefinition = (AnnotatedBeanDefinition) candidateComponent;
                 AnnotationMetadata annotationMetadata = beanDefinition.getMetadata();
                 Map<String, Object> attributes = annotationMetadata
-                        .getAnnotationAttributes(COSClient.class.getCanonicalName());
+                        .getAnnotationAttributes(TencentCloudCOSClient.class.getCanonicalName());
                 registerCOSClient(registry, annotationMetadata, attributes);
             }
         }
@@ -117,7 +117,7 @@ public class TencentCloudCOSClientRegister implements ImportBeanDefinitionRegist
 
     protected Set<String> getBasePackages(AnnotationMetadata importingClassMetadata) {
         Map<String, Object> attributes = importingClassMetadata
-                .getAnnotationAttributes(EnableCOSClients.class.getCanonicalName());
+                .getAnnotationAttributes(EnableTencentCloudCOSClients.class.getCanonicalName());
 
         Set<String> basePackages = new HashSet<>();
         for (String pkg : (String[]) attributes.get("value")) {

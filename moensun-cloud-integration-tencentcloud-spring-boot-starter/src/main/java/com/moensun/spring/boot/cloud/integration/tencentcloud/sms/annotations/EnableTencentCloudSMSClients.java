@@ -1,6 +1,6 @@
-package com.moensun.spring.boot.cloud.integration.huaweicloud.obs.annotations;
+package com.moensun.spring.boot.cloud.integration.tencentcloud.sms.annotations;
 
-import com.moensun.spring.boot.cloud.integration.huaweicloud.obs.OBSClientRegister;
+import com.moensun.spring.boot.cloud.integration.tencentcloud.sms.TencentCloudSMSClientRegister;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -8,8 +8,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import(value = {OBSClientRegister.class})
-public @interface EnableOBSClients {
+@Import(value = {TencentCloudSMSClientRegister.class})
+public @interface EnableTencentCloudSMSClients {
     String[] value() default {};
 
     String[] basePackages() default {};

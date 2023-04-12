@@ -6,7 +6,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-public @interface OSSClient {
+public @interface AliYunOSSClient {
     String accessKeyId() default "";
 
     String accessKeySecret() default "";

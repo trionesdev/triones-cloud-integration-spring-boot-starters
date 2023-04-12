@@ -1,7 +1,7 @@
 package com.moensun.spring.boot.cloud.integration.qiniu.kodo;
 
-import com.moensun.spring.boot.cloud.integration.qiniu.kodo.annotations.EnableKoDoClients;
-import com.moensun.spring.boot.cloud.integration.qiniu.kodo.annotations.KoDoClient;
+import com.moensun.spring.boot.cloud.integration.qiniu.kodo.annotations.EnableQiNiuKoDoClients;
+import com.moensun.spring.boot.cloud.integration.qiniu.kodo.annotations.QiNiuKoDoClient;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.annotation.AnnotatedGenericBeanDefinition;
 import org.springframework.beans.factory.config.*;
@@ -25,7 +25,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class KoDoClientRegister implements ImportBeanDefinitionRegistrar, ResourceLoaderAware, EnvironmentAware {
+public class QiNiuKoDoClientRegister implements ImportBeanDefinitionRegistrar, ResourceLoaderAware, EnvironmentAware {
     private ResourceLoader resourceLoader;
 
     private Environment environment;
@@ -47,12 +47,12 @@ public class KoDoClientRegister implements ImportBeanDefinitionRegistrar, Resour
 
     private void registerAliYunOssClients(AnnotationMetadata metadata, BeanDefinitionRegistry registry) {
         LinkedHashSet<BeanDefinition> candidateComponents = new LinkedHashSet<>();
-        Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableKoDoClients.class.getName());
+        Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableQiNiuKoDoClients.class.getName());
         final Class<?>[] channels = attrs == null ? null : (Class<?>[]) attrs.get("clients");
         if (channels == null || channels.length == 0) {
             ClassPathScanningCandidateComponentProvider scanner = getScanner();
             scanner.setResourceLoader(this.resourceLoader);
-            scanner.addIncludeFilter(new AnnotationTypeFilter(KoDoClient.class));
+            scanner.addIncludeFilter(new AnnotationTypeFilter(QiNiuKoDoClient.class));
             Set<String> basePackages = getBasePackages(metadata);
             for (String basePackage : basePackages) {
                 candidateComponents.addAll(scanner.findCandidateComponents(basePackage));
@@ -68,7 +68,7 @@ public class KoDoClientRegister implements ImportBeanDefinitionRegistrar, Resour
                 AnnotatedBeanDefinition beanDefinition = (AnnotatedBeanDefinition) candidateComponent;
                 AnnotationMetadata annotationMetadata = beanDefinition.getMetadata();
                 Map<String, Object> attributes = annotationMetadata
-                        .getAnnotationAttributes(KoDoClient.class.getCanonicalName());
+                        .getAnnotationAttributes(QiNiuKoDoClient.class.getCanonicalName());
                 registerAliYunOssClient(registry, annotationMetadata, attributes);
             }
         }
@@ -80,7 +80,7 @@ public class KoDoClientRegister implements ImportBeanDefinitionRegistrar, Resour
         ConfigurableBeanFactory beanFactory = registry instanceof ConfigurableBeanFactory
                 ? (ConfigurableBeanFactory) registry : null;
         Class clazz = ClassUtils.resolveClassName(className, null);
-        KoDoClientFactoryBean factoryBean = new KoDoClientFactoryBean();
+        QiNiuKoDoClientFactoryBean factoryBean = new QiNiuKoDoClientFactoryBean();
         factoryBean.setBeanFactory(beanFactory);
         factoryBean.setType(clazz);
         BeanDefinitionBuilder definition = BeanDefinitionBuilder.genericBeanDefinition(clazz, () -> {
@@ -116,7 +116,7 @@ public class KoDoClientRegister implements ImportBeanDefinitionRegistrar, Resour
 
     protected Set<String> getBasePackages(AnnotationMetadata importingClassMetadata) {
         Map<String, Object> attributes = importingClassMetadata
-                .getAnnotationAttributes(EnableKoDoClients.class.getCanonicalName());
+                .getAnnotationAttributes(EnableQiNiuKoDoClients.class.getCanonicalName());
 
         Set<String> basePackages = new HashSet<>();
         for (String pkg : (String[]) attributes.get("value")) {

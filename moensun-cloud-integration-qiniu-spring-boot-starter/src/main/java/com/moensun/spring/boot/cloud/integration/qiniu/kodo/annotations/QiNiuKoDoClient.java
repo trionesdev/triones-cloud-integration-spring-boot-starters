@@ -1,4 +1,4 @@
-package com.moensun.spring.boot.cloud.integration.tencentcloud.cos.annotations;
+package com.moensun.spring.boot.cloud.integration.qiniu.kodo.annotations;
 
 import java.lang.annotation.*;
 
@@ -6,12 +6,10 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-public @interface COSClient {
+public @interface QiNiuKoDoClient {
     String accessKey() default "";
 
     String secretKey() default "";
-
-    String region() default "";
 
     String bucket() default "";
 

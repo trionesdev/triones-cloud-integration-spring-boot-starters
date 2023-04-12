@@ -1,5 +1,6 @@
-package com.moensun.spring.boot.cloud.integration.tencentcloud.cos.annotations;
+package com.moensun.spring.boot.cloud.integration.huaweicloud.sms.annotations;
 
+import com.moensun.spring.boot.cloud.integration.huaweicloud.sms.HuaweiCloudSMSClientRegister;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -7,8 +8,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import(value = {COSClient.class})
-public @interface EnableCOSClients {
+@Import(value = {HuaweiCloudSMSClientRegister.class})
+public @interface EnableHuaweiCloudSMSClients {
     String[] value() default {};
 
     String[] basePackages() default {};

@@ -1,6 +1,6 @@
-package com.moensun.spring.boot.cloud.integration.huaweicloud.sms.annotations;
+package com.moensun.spring.boot.cloud.integration.qiniu.kodo.annotations;
 
-import com.moensun.spring.boot.cloud.integration.huaweicloud.sms.HuaweiCloudSMSClientRegister;
+import com.moensun.spring.boot.cloud.integration.qiniu.kodo.QiNiuKoDoClientRegister;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -8,8 +8,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import(value = {HuaweiCloudSMSClientRegister.class})
-public @interface EnableSMSClients {
+@Import(value = {QiNiuKoDoClientRegister.class})
+public @interface EnableQiNiuKoDoClients {
     String[] value() default {};
 
     String[] basePackages() default {};

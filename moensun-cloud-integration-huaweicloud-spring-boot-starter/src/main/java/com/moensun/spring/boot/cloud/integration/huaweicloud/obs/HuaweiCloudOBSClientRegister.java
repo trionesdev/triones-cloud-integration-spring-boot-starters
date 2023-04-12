@@ -1,7 +1,7 @@
 package com.moensun.spring.boot.cloud.integration.huaweicloud.obs;
 
-import com.moensun.spring.boot.cloud.integration.huaweicloud.obs.annotations.EnableOBSClients;
-import com.moensun.spring.boot.cloud.integration.huaweicloud.obs.annotations.OBSClient;
+import com.moensun.spring.boot.cloud.integration.huaweicloud.obs.annotations.EnableHuaweiCloudOBSClients;
+import com.moensun.spring.boot.cloud.integration.huaweicloud.obs.annotations.HuaweiCloudOBSClient;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.annotation.AnnotatedGenericBeanDefinition;
 import org.springframework.beans.factory.config.*;
@@ -25,7 +25,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class OBSClientRegister implements ImportBeanDefinitionRegistrar, ResourceLoaderAware, EnvironmentAware {
+public class HuaweiCloudOBSClientRegister implements ImportBeanDefinitionRegistrar, ResourceLoaderAware, EnvironmentAware {
     private ResourceLoader resourceLoader;
 
     private Environment environment;
@@ -47,12 +47,12 @@ public class OBSClientRegister implements ImportBeanDefinitionRegistrar, Resourc
 
     private void registerOBSClients(AnnotationMetadata metadata, BeanDefinitionRegistry registry) {
         LinkedHashSet<BeanDefinition> candidateComponents = new LinkedHashSet<>();
-        Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableOBSClients.class.getName());
+        Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableHuaweiCloudOBSClients.class.getName());
         final Class<?>[] channels = attrs == null ? null : (Class<?>[]) attrs.get("clients");
         if (channels == null || channels.length == 0) {
             ClassPathScanningCandidateComponentProvider scanner = getScanner();
             scanner.setResourceLoader(this.resourceLoader);
-            scanner.addIncludeFilter(new AnnotationTypeFilter(OBSClient.class));
+            scanner.addIncludeFilter(new AnnotationTypeFilter(HuaweiCloudOBSClient.class));
             Set<String> basePackages = getBasePackages(metadata);
             for (String basePackage : basePackages) {
                 candidateComponents.addAll(scanner.findCandidateComponents(basePackage));
@@ -68,7 +68,7 @@ public class OBSClientRegister implements ImportBeanDefinitionRegistrar, Resourc
                 AnnotatedBeanDefinition beanDefinition = (AnnotatedBeanDefinition) candidateComponent;
                 AnnotationMetadata annotationMetadata = beanDefinition.getMetadata();
                 Map<String, Object> attributes = annotationMetadata
-                        .getAnnotationAttributes(OBSClient.class.getCanonicalName());
+                        .getAnnotationAttributes(HuaweiCloudOBSClient.class.getCanonicalName());
                 registerOBSClient(registry, annotationMetadata, attributes);
             }
         }
@@ -80,7 +80,7 @@ public class OBSClientRegister implements ImportBeanDefinitionRegistrar, Resourc
         ConfigurableBeanFactory beanFactory = registry instanceof ConfigurableBeanFactory
                 ? (ConfigurableBeanFactory) registry : null;
         Class clazz = ClassUtils.resolveClassName(className, null);
-        OBSClientFactoryBean factoryBean = new OBSClientFactoryBean();
+        HuaweiCloudOBSClientFactoryBean factoryBean = new HuaweiCloudOBSClientFactoryBean();
         factoryBean.setBeanFactory(beanFactory);
         factoryBean.setType(clazz);
         BeanDefinitionBuilder definition = BeanDefinitionBuilder.genericBeanDefinition(clazz, () -> {
@@ -117,7 +117,7 @@ public class OBSClientRegister implements ImportBeanDefinitionRegistrar, Resourc
 
     protected Set<String> getBasePackages(AnnotationMetadata importingClassMetadata) {
         Map<String, Object> attributes = importingClassMetadata
-                .getAnnotationAttributes(EnableOBSClients.class.getCanonicalName());
+                .getAnnotationAttributes(EnableHuaweiCloudOBSClients.class.getCanonicalName());
 
         Set<String> basePackages = new HashSet<>();
         for (String pkg : (String[]) attributes.get("value")) {

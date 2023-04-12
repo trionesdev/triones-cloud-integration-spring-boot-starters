@@ -1,7 +1,7 @@
 package com.moensun.spring.boot.cloud.integration.aliyun.sms;
 
-import com.moensun.spring.boot.cloud.integration.aliyun.sms.annotations.EnableSMSClients;
-import com.moensun.spring.boot.cloud.integration.aliyun.sms.annotations.SMSClient;
+import com.moensun.spring.boot.cloud.integration.aliyun.sms.annotations.EnableAliYunSMSClients;
+import com.moensun.spring.boot.cloud.integration.aliyun.sms.annotations.AliYunSMSClient;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.annotation.AnnotatedGenericBeanDefinition;
 import org.springframework.beans.factory.config.*;
@@ -45,12 +45,12 @@ public class AliYunSMSClientRegister implements ImportBeanDefinitionRegistrar, R
 
     private void registerAliYunOssClients(AnnotationMetadata metadata, BeanDefinitionRegistry registry) {
         LinkedHashSet<BeanDefinition> candidateComponents = new LinkedHashSet<>();
-        Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableSMSClients.class.getName());
+        Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableAliYunSMSClients.class.getName());
         final Class<?>[] channels = attrs == null ? null : (Class<?>[]) attrs.get("clients");
         if (channels == null || channels.length == 0) {
             ClassPathScanningCandidateComponentProvider scanner = getScanner();
             scanner.setResourceLoader(this.resourceLoader);
-            scanner.addIncludeFilter(new AnnotationTypeFilter(SMSClient.class));
+            scanner.addIncludeFilter(new AnnotationTypeFilter(AliYunSMSClient.class));
             Set<String> basePackages = getBasePackages(metadata);
             for (String basePackage : basePackages) {
                 candidateComponents.addAll(scanner.findCandidateComponents(basePackage));
@@ -66,7 +66,7 @@ public class AliYunSMSClientRegister implements ImportBeanDefinitionRegistrar, R
                 AnnotatedBeanDefinition beanDefinition = (AnnotatedBeanDefinition) candidateComponent;
                 AnnotationMetadata annotationMetadata = beanDefinition.getMetadata();
                 Map<String, Object> attributes = annotationMetadata
-                        .getAnnotationAttributes(SMSClient.class.getCanonicalName());
+                        .getAnnotationAttributes(AliYunSMSClient.class.getCanonicalName());
                 registerAliYunOssClient(registry, annotationMetadata, attributes);
             }
         }
@@ -115,7 +115,7 @@ public class AliYunSMSClientRegister implements ImportBeanDefinitionRegistrar, R
 
     protected Set<String> getBasePackages(AnnotationMetadata importingClassMetadata) {
         Map<String, Object> attributes = importingClassMetadata
-                .getAnnotationAttributes(EnableSMSClients.class.getCanonicalName());
+                .getAnnotationAttributes(EnableAliYunSMSClients.class.getCanonicalName());
 
         Set<String> basePackages = new HashSet<>();
         for (String pkg : (String[]) attributes.get("value")) {

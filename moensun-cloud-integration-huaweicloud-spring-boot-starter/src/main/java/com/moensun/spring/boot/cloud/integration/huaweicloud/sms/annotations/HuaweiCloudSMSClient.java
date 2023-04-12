@@ -6,7 +6,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-public @interface SMSClient {
+public @interface HuaweiCloudSMSClient {
     String appKey() default "";
 
     String appSecret() default "";

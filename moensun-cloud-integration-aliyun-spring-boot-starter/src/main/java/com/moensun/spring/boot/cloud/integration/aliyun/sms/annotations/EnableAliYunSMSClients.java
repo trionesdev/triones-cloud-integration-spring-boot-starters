@@ -1,6 +1,6 @@
-package com.moensun.spring.boot.cloud.integration.aliyun.oss.annotations;
+package com.moensun.spring.boot.cloud.integration.aliyun.sms.annotations;
 
-import com.moensun.spring.boot.cloud.integration.aliyun.oss.AliYunOSSClientRegister;
+import com.moensun.spring.boot.cloud.integration.aliyun.sms.AliYunSMSClientRegister;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -8,8 +8,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import(value = {AliYunOSSClientRegister.class})
-public @interface EnableOSSClients {
+@Import(value = {AliYunSMSClientRegister.class})
+public @interface EnableAliYunSMSClients {
     String[] value() default {};
 
     String[] basePackages() default {};

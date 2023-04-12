@@ -1,7 +1,7 @@
 package com.moensun.spring.boot.cloud.integration.tencentcloud.sms;
 
-import com.moensun.spring.boot.cloud.integration.tencentcloud.sms.annotations.EnableSMSClients;
-import com.moensun.spring.boot.cloud.integration.tencentcloud.sms.annotations.SMSClient;
+import com.moensun.spring.boot.cloud.integration.tencentcloud.sms.annotations.EnableTencentCloudSMSClients;
+import com.moensun.spring.boot.cloud.integration.tencentcloud.sms.annotations.TencentCloudSMSClient;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.annotation.AnnotatedGenericBeanDefinition;
 import org.springframework.beans.factory.config.*;
@@ -45,12 +45,12 @@ public class TencentCloudSMSClientRegister implements ImportBeanDefinitionRegist
 
     private void registerSmsClients(AnnotationMetadata metadata, BeanDefinitionRegistry registry) {
         LinkedHashSet<BeanDefinition> candidateComponents = new LinkedHashSet<>();
-        Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableSMSClients.class.getName());
+        Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableTencentCloudSMSClients.class.getName());
         final Class<?>[] channels = attrs == null ? null : (Class<?>[]) attrs.get("clients");
         if (channels == null || channels.length == 0) {
             ClassPathScanningCandidateComponentProvider scanner = getScanner();
             scanner.setResourceLoader(this.resourceLoader);
-            scanner.addIncludeFilter(new AnnotationTypeFilter(SMSClient.class));
+            scanner.addIncludeFilter(new AnnotationTypeFilter(TencentCloudSMSClient.class));
             Set<String> basePackages = getBasePackages(metadata);
             for (String basePackage : basePackages) {
                 candidateComponents.addAll(scanner.findCandidateComponents(basePackage));
@@ -66,7 +66,7 @@ public class TencentCloudSMSClientRegister implements ImportBeanDefinitionRegist
                 AnnotatedBeanDefinition beanDefinition = (AnnotatedBeanDefinition) candidateComponent;
                 AnnotationMetadata annotationMetadata = beanDefinition.getMetadata();
                 Map<String, Object> attributes = annotationMetadata
-                        .getAnnotationAttributes(SMSClient.class.getCanonicalName());
+                        .getAnnotationAttributes(TencentCloudSMSClient.class.getCanonicalName());
                 registerAliYunOssClient(registry, annotationMetadata, attributes);
             }
         }
@@ -115,7 +115,7 @@ public class TencentCloudSMSClientRegister implements ImportBeanDefinitionRegist
 
     protected Set<String> getBasePackages(AnnotationMetadata importingClassMetadata) {
         Map<String, Object> attributes = importingClassMetadata
-                .getAnnotationAttributes(EnableSMSClients.class.getCanonicalName());
+                .getAnnotationAttributes(EnableTencentCloudSMSClients.class.getCanonicalName());
 
         Set<String> basePackages = new HashSet<>();
         for (String pkg : (String[]) attributes.get("value")) {

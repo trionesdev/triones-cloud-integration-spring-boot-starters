@@ -1,13 +1,12 @@
 package com.moensun.spring.boot.cloud.integration.aliyun.sms.annotations;
 
 import java.lang.annotation.*;
-import java.util.Map;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-public @interface SMSClient {
+public @interface AliYunSMSClient {
     String accessKeyId() default "";
 
     String accessKeySecret() default "";

@@ -1,6 +1,5 @@
-package com.moensun.spring.boot.cloud.integration.tencentcloud.sms.annotations;
+package com.moensun.spring.boot.cloud.integration.tencentcloud.cos.annotations;
 
-import com.moensun.spring.boot.cloud.integration.tencentcloud.sms.TencentCloudSMSClientRegister;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -8,8 +7,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import(value = {TencentCloudSMSClientRegister.class})
-public @interface EnableSMSClients {
+@Import(value = {TencentCloudCOSClient.class})
+public @interface EnableTencentCloudCOSClients {
     String[] value() default {};
 
     String[] basePackages() default {};

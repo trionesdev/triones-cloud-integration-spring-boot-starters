@@ -1,7 +1,7 @@
 package com.moensun.spring.boot.cloud.integration.aliyun.oss;
 
-import com.moensun.spring.boot.cloud.integration.aliyun.oss.annotations.OSSClient;
-import com.moensun.spring.boot.cloud.integration.aliyun.oss.annotations.EnableOSSClients;
+import com.moensun.spring.boot.cloud.integration.aliyun.oss.annotations.AliYunOSSClient;
+import com.moensun.spring.boot.cloud.integration.aliyun.oss.annotations.EnableAliYunOSSClients;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.annotation.AnnotatedGenericBeanDefinition;
 import org.springframework.beans.factory.config.*;
@@ -47,12 +47,12 @@ public class AliYunOSSClientRegister implements ImportBeanDefinitionRegistrar, R
 
     private void registerAliYunOssClients(AnnotationMetadata metadata, BeanDefinitionRegistry registry) {
         LinkedHashSet<BeanDefinition> candidateComponents = new LinkedHashSet<>();
-        Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableOSSClients.class.getName());
+        Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableAliYunOSSClients.class.getName());
         final Class<?>[] channels = attrs == null ? null : (Class<?>[]) attrs.get("clients");
         if (channels == null || channels.length == 0) {
             ClassPathScanningCandidateComponentProvider scanner = getScanner();
             scanner.setResourceLoader(this.resourceLoader);
-            scanner.addIncludeFilter(new AnnotationTypeFilter(OSSClient.class));
+            scanner.addIncludeFilter(new AnnotationTypeFilter(AliYunOSSClient.class));
             Set<String> basePackages = getBasePackages(metadata);
             for (String basePackage : basePackages) {
                 candidateComponents.addAll(scanner.findCandidateComponents(basePackage));
@@ -68,7 +68,7 @@ public class AliYunOSSClientRegister implements ImportBeanDefinitionRegistrar, R
                 AnnotatedBeanDefinition beanDefinition = (AnnotatedBeanDefinition) candidateComponent;
                 AnnotationMetadata annotationMetadata = beanDefinition.getMetadata();
                 Map<String, Object> attributes = annotationMetadata
-                        .getAnnotationAttributes(OSSClient.class.getCanonicalName());
+                        .getAnnotationAttributes(AliYunOSSClient.class.getCanonicalName());
                 registerAliYunOssClient(registry, annotationMetadata, attributes);
             }
         }
@@ -117,7 +117,7 @@ public class AliYunOSSClientRegister implements ImportBeanDefinitionRegistrar, R
 
     protected Set<String> getBasePackages(AnnotationMetadata importingClassMetadata) {
         Map<String, Object> attributes = importingClassMetadata
-                .getAnnotationAttributes(EnableOSSClients.class.getCanonicalName());
+                .getAnnotationAttributes(EnableAliYunOSSClients.class.getCanonicalName());
 
         Set<String> basePackages = new HashSet<>();
         for (String pkg : (String[]) attributes.get("value")) {

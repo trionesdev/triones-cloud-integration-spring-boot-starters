@@ -6,7 +6,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-public @interface OBSClient {
+public @interface HuaweiCloudOBSClient {
     String accessKeyId() default "";
 
     String accessKeySecret() default "";
