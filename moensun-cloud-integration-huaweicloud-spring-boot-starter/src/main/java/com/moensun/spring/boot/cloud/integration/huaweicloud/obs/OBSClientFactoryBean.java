@@ -1,8 +1,8 @@
-package com.moensun.spring.boot.cloud.integration.other.minio;
+package com.moensun.spring.boot.cloud.integration.huaweicloud.obs;
 
-import com.moensun.cloud.integration.minio.Minio;
-import com.moensun.cloud.integration.minio.MinioConfig;
-import io.minio.MinioClient;
+import com.moensun.cloud.integration.huaweicloud.obs.HuaweiCloudObs;
+import com.moensun.cloud.integration.huaweicloud.obs.HuaweiCloudObsConfig;
+import com.obs.services.ObsClient;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -11,15 +11,16 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-public class MinioFactoryBean implements FactoryBean<Object>, InitializingBean,
+public class OBSClientFactoryBean implements FactoryBean<Object>, InitializingBean,
         ApplicationContextAware, BeanFactoryAware {
+    private String accessKeyId;
+    private String secretAccessKey;
     private String endpoint;
-    private String accessKey;
-    private String secretKey;
     private String bucket;
     private String urlPrefix;
     private Class<?> type;
@@ -52,16 +53,16 @@ public class MinioFactoryBean implements FactoryBean<Object>, InitializingBean,
         this.applicationContext = applicationContext;
     }
 
+    public void setAccessKeyId(String accessKeyId) {
+        this.accessKeyId = accessKeyId;
+    }
+
+    public void setSecretAccessKey(String secretAccessKey) {
+        this.secretAccessKey = secretAccessKey;
+    }
+
     public void setEndpoint(String endpoint) {
         this.endpoint = endpoint;
-    }
-
-    public void setAccessKey(String accessKey) {
-        this.accessKey = accessKey;
-    }
-
-    public void setSecretKey(String secretKey) {
-        this.secretKey = secretKey;
     }
 
     public void setBucket(String bucket) {
@@ -77,14 +78,18 @@ public class MinioFactoryBean implements FactoryBean<Object>, InitializingBean,
     }
 
     protected <T> T getTarget() {
-        MinioClient minioClient = MinioClient.builder().endpoint(this.endpoint)
-                .credentials(this.accessKey, this.secretKey)
-                .build();
-        MinioConfig minioConfig = MinioConfig.builder()
-                .bucket(this.bucket)
-                .urlPrefix(this.urlPrefix)
-                .build();
-        Minio minio = new Minio(minioClient, minioConfig);
-        return (T) this.type.cast(Proxy.newProxyInstance(this.type.getClassLoader(), new Class[]{this.type}, (proxy, method, args) -> method.invoke(minio, args)));
+        try (ObsClient obsClient = new ObsClient(this.accessKeyId, this.secretAccessKey, this.endpoint)) {
+            HuaweiCloudObsConfig huaweiCloudObsConfig = HuaweiCloudObsConfig.builder().bucket(this.bucket).urlPrefix(this.urlPrefix).build();
+            HuaweiCloudObs obs = new HuaweiCloudObs(obsClient, huaweiCloudObsConfig);
+            return (T) this.type.cast(Proxy.newProxyInstance(this.type.getClassLoader(), new Class[]{this.type}, new InvocationHandler() {
+                @Override
+                public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                    return method.invoke(obs, args);
+                }
+            }));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
