@@ -1,6 +1,6 @@
-package com.moensun.spring.boot.cloud.integration.aliyun.sms.annotations;
+package com.moensun.spring.boot.cloud.integration.huaweicloud.sms.annotations;
 
-import com.moensun.spring.boot.cloud.integration.aliyun.sms.AliYunSMSClientRegister;
+import com.moensun.spring.boot.cloud.integration.huaweicloud.sms.HuaweiCloudSMSClientRegister;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import(value = {AliYunSMSClientRegister.class})
+@Import(value = {HuaweiCloudSMSClientRegister.class})
 public @interface EnableSMSClients {
     String[] value() default {};
 

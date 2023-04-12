@@ -1,7 +1,7 @@
-package com.moensun.spring.boot.cloud.integration.aliyun.sms;
+package com.moensun.spring.boot.cloud.integration.tencentcloud.sms;
 
-import com.moensun.spring.boot.cloud.integration.aliyun.sms.annotations.EnableSMSClients;
-import com.moensun.spring.boot.cloud.integration.aliyun.sms.annotations.SMSClient;
+import com.moensun.spring.boot.cloud.integration.tencentcloud.sms.annotations.EnableSMSClients;
+import com.moensun.spring.boot.cloud.integration.tencentcloud.sms.annotations.SMSClient;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.annotation.AnnotatedGenericBeanDefinition;
 import org.springframework.beans.factory.config.*;
@@ -23,7 +23,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.*;
 
-public class AliYunSMSClientRegister implements ImportBeanDefinitionRegistrar, ResourceLoaderAware, EnvironmentAware {
+public class TencentCloudSMSClientRegister implements ImportBeanDefinitionRegistrar, ResourceLoaderAware, EnvironmentAware {
     private ResourceLoader resourceLoader;
 
     private Environment environment;
@@ -40,10 +40,10 @@ public class AliYunSMSClientRegister implements ImportBeanDefinitionRegistrar, R
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata metadata, BeanDefinitionRegistry registry) {
-        registerAliYunOssClients(metadata, registry);
+        registerSmsClients(metadata, registry);
     }
 
-    private void registerAliYunOssClients(AnnotationMetadata metadata, BeanDefinitionRegistry registry) {
+    private void registerSmsClients(AnnotationMetadata metadata, BeanDefinitionRegistry registry) {
         LinkedHashSet<BeanDefinition> candidateComponents = new LinkedHashSet<>();
         Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableSMSClients.class.getName());
         final Class<?>[] channels = attrs == null ? null : (Class<?>[]) attrs.get("clients");
@@ -78,13 +78,13 @@ public class AliYunSMSClientRegister implements ImportBeanDefinitionRegistrar, R
         ConfigurableBeanFactory beanFactory = registry instanceof ConfigurableBeanFactory
                 ? (ConfigurableBeanFactory) registry : null;
         Class clazz = ClassUtils.resolveClassName(className, null);
-        AliYunSMSClientFactoryBean factoryBean = new AliYunSMSClientFactoryBean();
+        TencentCloudSMSClientFactoryBean factoryBean = new TencentCloudSMSClientFactoryBean();
         factoryBean.setBeanFactory(beanFactory);
         factoryBean.setType(clazz);
         BeanDefinitionBuilder definition = BeanDefinitionBuilder.genericBeanDefinition(clazz, () -> {
-            factoryBean.setAccessKeyId(getAccessKeyId(beanFactory, attributes));
-            factoryBean.setAccessKeySecret(getAccessKeySecret(beanFactory, attributes));
-            factoryBean.setRegionId(getRegionId(beanFactory, attributes));
+            factoryBean.setSecretId(getSecretId(beanFactory, attributes));
+            factoryBean.setSecretKey(getSecretKey(beanFactory, attributes));
+            factoryBean.setSdkAppId(getSdkAppId(beanFactory, attributes));
             factoryBean.setSignName(getSignName(beanFactory, attributes));
             factoryBean.setTemplateCodes(getTemplateCodes(beanFactory, attributes));
             return factoryBean.getObject();
@@ -158,18 +158,18 @@ public class AliYunSMSClientRegister implements ImportBeanDefinitionRegistrar, R
     }
 
 
-    String getAccessKeyId(ConfigurableBeanFactory beanFactory, Map<String, Object> attributes) {
-        String endpoint = (String) attributes.get("accessKeyId");
+    String getSecretId(ConfigurableBeanFactory beanFactory, Map<String, Object> attributes) {
+        String endpoint = (String) attributes.get("secretId");
         return resolve(beanFactory, endpoint);
     }
 
-    String getAccessKeySecret(ConfigurableBeanFactory beanFactory, Map<String, Object> attributes) {
-        String endpoint = (String) attributes.get("accessKeySecret");
+    String getSecretKey(ConfigurableBeanFactory beanFactory, Map<String, Object> attributes) {
+        String endpoint = (String) attributes.get("secretKey");
         return resolve(beanFactory, endpoint);
     }
 
-    String getRegionId(ConfigurableBeanFactory beanFactory, Map<String, Object> attributes) {
-        String endpoint = (String) attributes.get("regionId");
+    String getSdkAppId(ConfigurableBeanFactory beanFactory, Map<String, Object> attributes) {
+        String endpoint = (String) attributes.get("sdkAppId");
         return resolve(beanFactory, endpoint);
     }
 
