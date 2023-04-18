@@ -17,7 +17,7 @@
 
 ```java
 import com.moensun.cloud.integration.api.oss.OssTemplate;
-import com.moensun.cloud.integration.spring.boot.other.minio.annotations.MinioClient;
+import com.moensun.minio.autoconfigure.MinioClient;
 
 @MinioClient(
         secretKey = "",

@@ -1,6 +1,6 @@
 package com.moensun.spring.boot.cloud.integration.other.minio;
 
-import com.moensun.cloud.integration.spring.boot.other.minio.annotations.EnableMinioClients;
+import com.moensun.minio.autoconfigure.EnableMinioClients;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
