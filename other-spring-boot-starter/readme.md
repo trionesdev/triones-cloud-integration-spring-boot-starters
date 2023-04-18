@@ -17,16 +17,16 @@
 
 ```java
 import com.moensun.cloud.integration.api.oss.OssTemplate;
-import com.moensun.cloud.integration.starter.other.minio.annotations.MinioClient;
+import com.moensun.cloud.integration.spring.boot.other.minio.annotations.MinioClient;
 
 @MinioClient(
-        secretKey = "", 
+        secretKey = "",
         accessKey = "",
         endpoint = "",
         bucket = "",
         urlPrefix = "" //拼接URL的前缀
 )
 public interface MinioOssClient extends OssTemplate {
-    
+
 }
 ```

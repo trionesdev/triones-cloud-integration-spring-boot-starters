@@ -1,6 +1,6 @@
 package com.moensun.spring.boot.cloud.integration.aliyun.sms;
 
-import com.moensun.cloud.integration.starter.aliyun.sms.annotations.EnableAliYunSMSClients;
+import com.moensun.cloud.integration.spring.boot.aliyun.sms.annotations.EnableAliYunSMSClients;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
