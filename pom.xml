@@ -4,17 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.moensun.spring.boot</groupId>
-    <artifactId>moensun-cloud-integration-spring-boot-starters</artifactId>
+    <groupId>com.moensun.cloud.integration</groupId>
+    <artifactId>cloud-integration-spring-boot-starters</artifactId>
     <packaging>pom</packaging>
     <version>1.1-SNAPSHOT</version>
     <name>MS:CloudIntegrationBootStarters</name>
     <modules>
-        <module>moensun-cloud-integration-huaweicloud-spring-boot-starter</module>
-        <module>moensun-cloud-integration-aliyun-spring-boot-starter</module>
-        <module>moensun-cloud-integration-qiniu-spring-boot-starter</module>
-        <module>moensun-cloud-integration-tencentcloud-spring-boot-starter</module>
-        <module>moensun-cloud-integration-other-spring-boot-starter</module>
+        <module>huaweicloud-spring-boot-starter</module>
+        <module>aliyun-spring-boot-starter</module>
+        <module>qiniu-spring-boot-starter</module>
+        <module>tencentcloud-spring-boot-starter</module>
+        <module>other-spring-boot-starter</module>
     </modules>
 
     <properties>
@@ -33,35 +33,35 @@
             </dependency>
             <dependency>
                 <groupId>com.moensun.cloud.integration</groupId>
-                <artifactId>moensun-cloud-integrations</artifactId>
+                <artifactId>cloud-integrations</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
 
             <dependency>
-                <groupId>com.moensun.spring.boot</groupId>
-                <artifactId>moensun-cloud-integration-huaweicloud-spring-boot-starter</artifactId>
+                <groupId>com.moensun.cloud.integration</groupId>
+                <artifactId>huaweicloud-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.moensun.spring.boot</groupId>
-                <artifactId>moensun-cloud-integration-aliyun-spring-boot-starter</artifactId>
+                <groupId>com.moensun.cloud.integration</groupId>
+                <artifactId>aliyun-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.moensun.spring.boot</groupId>
-                <artifactId>moensun-cloud-integration-tencentcloud-spring-boot-starter</artifactId>
+                <groupId>com.moensun.cloud.integration</groupId>
+                <artifactId>tencentcloud-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.moensun.spring.boot</groupId>
-                <artifactId>moensun-cloud-integration-qiniu-spring-boot-starter</artifactId>
+                <groupId>com.moensun.cloud.integration</groupId>
+                <artifactId>qiniu-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.moensun.spring.boot</groupId>
-                <artifactId>moensun-cloud-integration-other-spring-boot-starter</artifactId>
+                <groupId>com.moensun.cloud.integration</groupId>
+                <artifactId>other-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
