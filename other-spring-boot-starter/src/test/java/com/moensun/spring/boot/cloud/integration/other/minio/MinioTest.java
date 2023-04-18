@@ -1,6 +1,6 @@
 package com.moensun.spring.boot.cloud.integration.other.minio;
 
-import com.moensun.cloud.integration.api.oss.request.OssListObjectsRequest;
+import com.moensun.csi.api.oss.request.OssListObjectsRequest;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

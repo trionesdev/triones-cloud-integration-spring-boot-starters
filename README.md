@@ -8,7 +8,7 @@
 引入依赖
 ```
 <dependency>
-    <groupId>com.moensun.cloud.integration</groupId>
+    <groupId>com.moensun.csi</groupId>
     <artifactId>cloud-integration-spring-boot-starters</artifactId>
     <version>1.1-SNAPSHOT</version>
     <type>pom</type>

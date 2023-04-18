@@ -5,7 +5,7 @@
 ### 添加依赖
 ```
 <dependency>
-    <groupId>com.moensun.cloud.integration</groupId>
+    <groupId>com.moensun.csi</groupId>
     <artifactId>other-spring-boot-starter</artifactId>
 </dependency>
 ```
@@ -16,8 +16,8 @@
 #### 添加Client
 
 ```java
-import com.moensun.cloud.integration.api.oss.OssTemplate;
-import com.moensun.minio.annotation.MinioClient;
+import com.moensun.csi.api.oss.OssTemplate;
+import com.moensun.csi.minio.annotation.MinioClient;
 
 @MinioClient(
         secretKey = "",
