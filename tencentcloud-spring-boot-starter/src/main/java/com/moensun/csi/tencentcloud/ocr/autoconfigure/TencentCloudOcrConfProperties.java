@@ -1,4 +1,4 @@
-package com.moensun.csi.tencentcloud.ocr;
+package com.moensun.csi.tencentcloud.ocr.autoconfigure;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,6 +1,7 @@
-package com.moensun.csi.tencentcloud.ocr;
+package com.moensun.csi.tencentcloud.ocr.autoconfigure;
 
 import com.moensun.csi.api.ocr.OcrTemplate;
+import com.moensun.csi.tencentcloud.ocr.TencentCloudOcr;
 import com.tencentcloudapi.common.Credential;
 import com.tencentcloudapi.ocr.v20181119.OcrClient;
 import lombok.RequiredArgsConstructor;
