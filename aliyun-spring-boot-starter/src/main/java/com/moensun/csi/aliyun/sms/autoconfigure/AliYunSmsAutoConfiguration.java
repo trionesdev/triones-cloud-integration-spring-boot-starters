@@ -28,7 +28,7 @@ public class AliYunSmsAutoConfiguration implements EnvironmentAware, BeanFactory
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) configurableListableBeanFactory;
-        DefaultProfile profile = DefaultProfile.getProfile(aliYunSmsProperties.getRegionId(), aliYunSmsProperties.getAccessKeyId(), aliYunSmsConfProperties.getAccessKeySecret());
+        DefaultProfile profile = DefaultProfile.getProfile(aliYunSmsProperties.getRegionId(), aliYunSmsProperties.getAccessKeyId(), aliYunSmsProperties.getAccessKeySecret());
         AliYunSmsConfig aliYunSmsConfig = AliYunSmsConfig.builder()
                 .regionId(aliYunSmsProperties.getRegionId())
                 .signName(aliYunSmsProperties.getSignName())
