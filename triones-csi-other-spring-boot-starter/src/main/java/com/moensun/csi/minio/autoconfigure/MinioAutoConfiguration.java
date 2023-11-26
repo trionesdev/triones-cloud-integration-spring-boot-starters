@@ -41,7 +41,7 @@ public class MinioAutoConfiguration implements EnvironmentAware, BeanFactoryPost
 
     @Override
     public void setEnvironment(Environment environment) {
-        minioProperties = Binder.get(environment).bind("minio", MinioProperties.class).get();
+        minioProperties = Binder.get(environment).bind("triones.minio", MinioProperties.class).get();
     }
 
     private void registerBean(DefaultListableBeanFactory beanFactory, MinioClient minioClient, MinioConfig minioConfig, String beanName) {

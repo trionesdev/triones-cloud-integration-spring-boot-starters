@@ -43,7 +43,7 @@ public class AliYunSmsAutoConfiguration implements EnvironmentAware, BeanFactory
 
     @Override
     public void setEnvironment(Environment environment) {
-        this.aliYunSmsProperties = Binder.get(environment).bind("aliyun.sms", AliYunSmsProperties.class).get();
+        this.aliYunSmsProperties = Binder.get(environment).bind("triones.aliyun.sms", AliYunSmsProperties.class).get();
     }
 
     private void registerBean(DefaultListableBeanFactory beanFactory, ConstructorArgumentValues argumentValues, String beanName) {

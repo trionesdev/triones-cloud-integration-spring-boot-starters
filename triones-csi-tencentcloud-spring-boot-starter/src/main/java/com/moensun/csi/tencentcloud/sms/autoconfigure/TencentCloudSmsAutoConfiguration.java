@@ -54,7 +54,7 @@ public class TencentCloudSmsAutoConfiguration implements EnvironmentAware, BeanF
 
     @Override
     public void setEnvironment(Environment environment) {
-        this.tencentCloudSmsProperties = Binder.get(environment).bind("tencentcloud.sms", TencentCloudSmsProperties.class).get();
+        this.tencentCloudSmsProperties = Binder.get(environment).bind("triones.tencentcloud.sms", TencentCloudSmsProperties.class).get();
     }
 
 }

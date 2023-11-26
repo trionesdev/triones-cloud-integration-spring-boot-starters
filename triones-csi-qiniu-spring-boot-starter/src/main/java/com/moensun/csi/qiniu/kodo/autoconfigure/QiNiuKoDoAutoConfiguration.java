@@ -46,7 +46,7 @@ public class QiNiuKoDoAutoConfiguration implements EnvironmentAware, BeanFactory
 
     @Override
     public void setEnvironment(Environment environment) {
-        this.qiNiuKoDoProperties = Binder.get(environment).bind("qiniu.kodo", QiNiuKoDoProperties.class).get();
+        this.qiNiuKoDoProperties = Binder.get(environment).bind("triones.qiniu.kodo", QiNiuKoDoProperties.class).get();
     }
 
     private void registerBean(DefaultListableBeanFactory beanFactory, ConstructorArgumentValues argumentValues, String beanName) {

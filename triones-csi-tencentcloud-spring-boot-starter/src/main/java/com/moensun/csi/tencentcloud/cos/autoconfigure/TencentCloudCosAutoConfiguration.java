@@ -49,7 +49,7 @@ public class TencentCloudCosAutoConfiguration implements EnvironmentAware, BeanF
 
     @Override
     public void setEnvironment(Environment environment) {
-        this.tencentCloudCosProperties = Binder.get(environment).bind("tencentcloud.cos", TencentCloudCosProperties.class).get();
+        this.tencentCloudCosProperties = Binder.get(environment).bind("triones.tencentcloud.cos", TencentCloudCosProperties.class).get();
     }
 
     private void registerBean(DefaultListableBeanFactory beanFactory, ConstructorArgumentValues argumentValues, String beanName) {

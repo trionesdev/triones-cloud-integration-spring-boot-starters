@@ -43,7 +43,7 @@ public class AliYunOssAutoConfiguration implements EnvironmentAware, BeanFactory
 
     @Override
     public void setEnvironment( Environment environment) {
-        this.ossProperties =  Binder.get(environment).bind("aliyun.oss", AliYunOssProperties.class).get();
+        this.ossProperties =  Binder.get(environment).bind("triones.aliyun.oss", AliYunOssProperties.class).get();
     }
 
     private void registerBean(DefaultListableBeanFactory beanFactory, ConstructorArgumentValues argumentValues, String beanName) {

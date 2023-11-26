@@ -38,7 +38,7 @@ public class HuaweiCloudObsAutoConfiguration implements EnvironmentAware, BeanFa
 
     @Override
     public void setEnvironment(Environment environment) {
-        this.obsConfProperties = Binder.get(environment).bind("huaweicloud.obs", HuaweiObsProperties.class).get();
+        this.obsConfProperties = Binder.get(environment).bind("triones.huaweicloud.obs", HuaweiObsProperties.class).get();
     }
 
     private void registerBean(DefaultListableBeanFactory beanFactory, ConstructorArgumentValues argumentValues, String beanName) {
