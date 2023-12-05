@@ -17,7 +17,7 @@
 
 ```java
 import com.moensun.csi.api.oss.OssTemplate;
-import com.moensun.csi.minio.annotation.MinioClient;
+import com.trionesdev.csi.minio.annotation.MinioClient;
 
 @MinioClient(
         secretKey = "",

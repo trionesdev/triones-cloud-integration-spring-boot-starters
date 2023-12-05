@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.moensun.csi.minio.autoconfigure.MinioAutoConfiguration
+com.trionesdev.csi.minio.autoconfigure.MinioAutoConfiguration

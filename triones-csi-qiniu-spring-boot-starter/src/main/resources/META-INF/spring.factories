@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.moensun.csi.qiniu.kodo.autoconfigure.QiNiuKoDoAutoConfiguration
+com.trionesdev.csi.qiniu.kodo.autoconfigure.QiNiuKoDoAutoConfiguration
