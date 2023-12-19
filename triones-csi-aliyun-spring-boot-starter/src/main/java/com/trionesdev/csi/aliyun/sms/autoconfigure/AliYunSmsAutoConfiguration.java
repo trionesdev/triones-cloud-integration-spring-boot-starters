@@ -1,10 +1,12 @@
 package com.trionesdev.csi.aliyun.sms.autoconfigure;
 
-import com.aliyuncs.DefaultAcsClient;
+import com.aliyun.dysmsapi20170525.Client;
+import com.aliyun.teaopenapi.models.Config;
 import com.aliyuncs.profile.DefaultProfile;
 import com.trionesdev.csi.aliyun.sms.AliYunSms;
 import com.trionesdev.csi.aliyun.sms.AliYunSmsConfig;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -25,17 +27,18 @@ import org.springframework.core.env.Environment;
 public class AliYunSmsAutoConfiguration implements EnvironmentAware, BeanFactoryPostProcessor {
     private AliYunSmsProperties aliYunSmsProperties;
 
+    @SneakyThrows
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) configurableListableBeanFactory;
-        DefaultProfile profile = DefaultProfile.getProfile(aliYunSmsProperties.getRegionId(), aliYunSmsProperties.getAccessKeyId(), aliYunSmsProperties.getAccessKeySecret());
+        Config config = new Config().setAccessKeyId(aliYunSmsProperties.getAccessKeyId()).setAccessKeySecret(aliYunSmsProperties.getAccessKeySecret());
         AliYunSmsConfig aliYunSmsConfig = AliYunSmsConfig.builder()
                 .regionId(aliYunSmsProperties.getRegionId())
                 .signName(aliYunSmsProperties.getSignName())
                 .templateCodes(aliYunSmsProperties.getTemplateCodes())
                 .build();
         ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
-        argumentValues.addIndexedArgumentValue(0, new DefaultAcsClient(profile));
+        argumentValues.addIndexedArgumentValue(0, new Client(config));
         argumentValues.addIndexedArgumentValue(1, aliYunSmsConfig);
         registerBean(beanFactory, argumentValues, AliYunSms.class.getName());
 

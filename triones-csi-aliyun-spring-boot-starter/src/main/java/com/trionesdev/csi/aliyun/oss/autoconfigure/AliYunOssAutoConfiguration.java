@@ -29,6 +29,7 @@ public class AliYunOssAutoConfiguration implements EnvironmentAware, BeanFactory
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) configurableListableBeanFactory;
+        new OSSClientBuilder();
         OSS oss = new OSSClientBuilder().build(ossProperties.getEndpoint(), ossProperties.getAccessKeyId(), ossProperties.getAccessKeySecret());
         AliYunOssConfig aliYunOssProperties = AliYunOssConfig.builder()
                 .bucket(ossProperties.getBucket())

@@ -4,6 +4,7 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.trionesdev.csi.aliyun.oss.AliYunOSS;
 import com.trionesdev.csi.aliyun.oss.AliYunOssConfig;
+import lombok.Setter;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -18,11 +19,17 @@ import java.lang.reflect.Proxy;
 
 public class AliYunOSSClientFactoryBean implements FactoryBean<Object>, InitializingBean,
         ApplicationContextAware, BeanFactoryAware {
+    @Setter
     private String accessKeyId;
+    @Setter
     private String accessKeySecret;
+    @Setter
     private String endpoint;
+    @Setter
     private String bucket;
+    @Setter
     private String urlPrefix;
+    @Setter
     private Class<?> type;
     private BeanFactory beanFactory;
 
@@ -51,30 +58,6 @@ public class AliYunOSSClientFactoryBean implements FactoryBean<Object>, Initiali
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
-    }
-
-    public void setAccessKeyId(String accessKeyId) {
-        this.accessKeyId = accessKeyId;
-    }
-
-    public void setAccessKeySecret(String accessKeySecret) {
-        this.accessKeySecret = accessKeySecret;
-    }
-
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint;
-    }
-
-    public void setBucket(String bucket) {
-        this.bucket = bucket;
-    }
-
-    public void setUrlPrefix(String urlPrefix) {
-        this.urlPrefix = urlPrefix;
-    }
-
-    public void setType(Class<?> type) {
-        this.type = type;
     }
 
     protected <T> T getTarget() {
