@@ -10,16 +10,25 @@
     <version>1.0-SNAPSHOT</version>
     <name>Triones:CloudIntegrationBootStarters</name>
     <modules>
-        <module>triones-csi-huaweicloud-spring-boot-starter</module>
         <module>triones-csi-aliyun-spring-boot-starter</module>
-        <module>triones-csi-qiniu-spring-boot-starter</module>
+        <module>triones-csi-aliyun-spring-boot-starter/triones-csi-aliyun-oss-spring-boot-starter</module>
+        <module>triones-csi-aliyun-spring-boot-starter/triones-csi-aliyun-sms-spring-boot-starter</module>
+        <module>triones-csi-huaweicloud-spring-boot-starter</module>
+        <module>triones-csi-huaweicloud-spring-boot-starter/triones-csi-huaweicloud-obs-spring-boot-starter</module>
+        <module>triones-csi-huaweicloud-spring-boot-starter/triones-csi-huaweicloud-sms-spring-boot-starter</module>
         <module>triones-csi-tencentcloud-spring-boot-starter</module>
-        <module>triones-csi-other-spring-boot-starter</module>
+        <module>triones-csi-tencentcloud-spring-boot-starter/triones-csi-tencentcloud-cos-spring-boot-starter</module>
+        <module>triones-csi-tencentcloud-spring-boot-starter/triones-csi-tencentcloud-sms-spring-boot-starter</module>
+        <module>triones-csi-tencentcloud-spring-boot-starter/triones-csi-tencentcloud-ocr-spring-boot-starter</module>
+        <module>triones-csi-qiniu-spring-boot-starter</module>
+        <module>triones-csi-qiniu-spring-boot-starter/triones-csi-qiniu-kudo-spring-boot-starter</module>
+        <module>triones-csi-selfhosted-spring-boot-starter</module>
     </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencyManagement>
@@ -39,11 +48,7 @@
                 <scope>import</scope>
             </dependency>
 
-            <dependency>
-                <groupId>com.trionesdev.csi</groupId>
-                <artifactId>triones-csi-huaweicloud-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
+            <!--            aliyun-->
             <dependency>
                 <groupId>com.trionesdev.csi</groupId>
                 <artifactId>triones-csi-aliyun-spring-boot-starter</artifactId>
@@ -51,9 +56,55 @@
             </dependency>
             <dependency>
                 <groupId>com.trionesdev.csi</groupId>
+                <artifactId>triones-csi-aliyun-oss-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>triones-csi-aliyun-sms-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--            aliyun-->
+            <!--huaweicloud-->
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>triones-csi-huaweicloud-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>triones-csi-huaweicloud-obs-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>triones-csi-huaweicloud-sms-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--huaweicloud-->
+            <!--        tencentcloud-->
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
                 <artifactId>triones-csi-tencentcloud-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>triones-csi-tencentcloud-cos-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>triones-csi-tencentcloud-sms-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>triones-csi-tencentcloud-ocr-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--        tencentcloud-->
+            <!--            quniu-->
             <dependency>
                 <groupId>com.trionesdev.csi</groupId>
                 <artifactId>triones-csi-qiniu-spring-boot-starter</artifactId>
@@ -61,7 +112,15 @@
             </dependency>
             <dependency>
                 <groupId>com.trionesdev.csi</groupId>
-                <artifactId>triones-csi-other-spring-boot-starter</artifactId>
+                <artifactId>triones-csi-qiniu-kudo-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--            quniu-->
+
+
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>triones-csi-minio-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.trionesdev.csi.aliyun.sms.autoconfigure.AliYunSmsAutoConfiguration
