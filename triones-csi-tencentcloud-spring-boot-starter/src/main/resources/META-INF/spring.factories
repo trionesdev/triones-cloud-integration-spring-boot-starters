@@ -1,4 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.trionesdev.csi.tencentcloud.cos.autoconfigure.TencentCloudCosAutoConfiguration,\
-  com.trionesdev.csi.tencentcloud.ocr.autoconfigure.TencentCloudOcrAutoConfiguration,\
-  com.trionesdev.csi.tencentcloud.sms.autoconfigure.TencentCloudSmsAutoConfiguration

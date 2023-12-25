@@ -6,25 +6,36 @@
         <artifactId>triones-cloud-integration-spring-boot-starters</artifactId>
         <groupId>com.trionesdev.csi</groupId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <name>Triones:CloudIntegrationBootStarter:HuaweiCloud</name>
-    <artifactId>triones-csi-huaweicloud-spring-boot-starter</artifactId>
+    <name>Triones:CSI:Boot:AliYun:oss</name>
+    <artifactId>triones-csi-aliyun-oss-spring-boot-starter</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.trionesdev.csi</groupId>
-            <artifactId>triones-csi-huaweicloud-obs-spring-boot-starter</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>com.trionesdev.csi</groupId>
-            <artifactId>triones-csi-huaweicloud-sms-spring-boot-starter</artifactId>
+            <artifactId>triones-csi-aliyun-oss</artifactId>
         </dependency>
     </dependencies>
 

@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.moensun.csi.huaweicloud.obs.autoconfigure.HuaweiCloudSmAutoConfiguration,\
-  com.trionesdev.csi.huaweicloud.sms.autoconfigure.HuaweiCloudSmAutoConfiguration
