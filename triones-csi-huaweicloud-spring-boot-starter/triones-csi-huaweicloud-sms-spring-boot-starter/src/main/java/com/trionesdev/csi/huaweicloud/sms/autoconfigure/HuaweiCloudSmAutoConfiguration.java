@@ -19,7 +19,7 @@ import org.springframework.core.env.Environment;
 
 @RequiredArgsConstructor
 @Configuration
-@ConditionalOnProperty(prefix = "huaweicloud.sms", value = {"enabled"}, havingValue = "true")
+@ConditionalOnProperty(prefix = "triones.huaweicloud.sms", value = {"enabled"}, havingValue = "true")
 @EnableConfigurationProperties(value = {HuaweiCloudSmsProperties.class})
 public class HuaweiCloudSmAutoConfiguration implements EnvironmentAware, BeanFactoryPostProcessor {
 
