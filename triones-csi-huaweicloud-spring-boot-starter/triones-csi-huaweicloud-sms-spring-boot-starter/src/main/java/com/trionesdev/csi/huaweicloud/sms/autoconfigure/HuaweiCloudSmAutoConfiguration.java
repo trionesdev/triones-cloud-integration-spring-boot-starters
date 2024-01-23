@@ -30,6 +30,7 @@ public class HuaweiCloudSmAutoConfiguration implements EnvironmentAware, BeanFac
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) configurableListableBeanFactory;
         HuaweiCloudSmsClient smsClient = new HuaweiCloudSmsClient(confProperties.getAppKey(), confProperties.getAppSecret());
         HuaweiCloudSmsConfig smsConfig = HuaweiCloudSmsConfig.builder()
+                .sender(confProperties.getSender())
                 .regionId(confProperties.getRegionId())
                 .signName(confProperties.getSignName())
                 .templateCodes(confProperties.getTemplateCodes())

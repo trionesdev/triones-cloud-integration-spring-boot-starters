@@ -15,5 +15,7 @@ public @interface HuaweiCloudSMSClient {
 
     String signName() default "";
 
+    String sender() default "";
+
     TemplateCode[] templateCodes() default {};
 }

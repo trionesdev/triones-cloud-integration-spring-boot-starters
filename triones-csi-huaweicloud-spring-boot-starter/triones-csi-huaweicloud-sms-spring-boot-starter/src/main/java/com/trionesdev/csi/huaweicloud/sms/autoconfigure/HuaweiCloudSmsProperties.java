@@ -13,6 +13,7 @@ public class HuaweiCloudSmsProperties {
     private String appSecret;
     private String regionId;
     private String signName;
-    private Map<String,String> templateCodes;
+    private String sender;
+    private Map<String, String> templateCodes;
 
 }

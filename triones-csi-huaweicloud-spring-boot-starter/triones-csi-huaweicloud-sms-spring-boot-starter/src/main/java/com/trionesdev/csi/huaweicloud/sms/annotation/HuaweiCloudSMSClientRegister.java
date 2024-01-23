@@ -157,23 +157,28 @@ public class HuaweiCloudSMSClientRegister implements ImportBeanDefinitionRegistr
 
 
     String getAppKey(ConfigurableBeanFactory beanFactory, Map<String, Object> attributes) {
-        String endpoint = (String) attributes.get("appKey");
-        return resolve(beanFactory, endpoint);
+        String appKey = (String) attributes.get("appKey");
+        return resolve(beanFactory, appKey);
     }
 
     String getAppSecret(ConfigurableBeanFactory beanFactory, Map<String, Object> attributes) {
-        String endpoint = (String) attributes.get("appSecret");
-        return resolve(beanFactory, endpoint);
+        String appSecret = (String) attributes.get("appSecret");
+        return resolve(beanFactory, appSecret);
+    }
+
+    String getSender(ConfigurableBeanFactory beanFactory, Map<String, Object> attributes) {
+        String sender = (String) attributes.get("sender");
+        return resolve(beanFactory, sender);
     }
 
     String getRegionId(ConfigurableBeanFactory beanFactory, Map<String, Object> attributes) {
-        String endpoint = (String) attributes.get("regionId");
-        return resolve(beanFactory, endpoint);
+        String regionId = (String) attributes.get("regionId");
+        return resolve(beanFactory, regionId);
     }
 
     String getSignName(ConfigurableBeanFactory beanFactory, Map<String, Object> attributes) {
-        String endpoint = (String) attributes.get("signName");
-        return resolve(beanFactory, endpoint);
+        String signName = (String) attributes.get("signName");
+        return resolve(beanFactory, signName);
     }
 
     Map<String, String> getTemplateCodes(ConfigurableBeanFactory beanFactory, Map<String, Object> attributes) {
