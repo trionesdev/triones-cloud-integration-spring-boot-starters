@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
-
+    <name>Triones:CSI:Boot:TencentCloud:Ocr</name>
     <artifactId>triones-csi-tencentcloud-ocr-spring-boot-starter</artifactId>
 
     <properties>

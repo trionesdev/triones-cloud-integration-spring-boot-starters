@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.util.Map;
 
 @Data
-@ConfigurationProperties(prefix = "huaweicloud.sms")
+@ConfigurationProperties(prefix = "triones.huaweicloud.sms")
 public class HuaweiCloudSmsProperties {
     private Boolean enabled;
     private String appKey;
