@@ -17,9 +17,11 @@ import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
+import static com.trionesdev.csi.huaweicloud.sms.autoconfigure.HuaweiCloudSmsProperties.PREFIX;
+
 @RequiredArgsConstructor
 @Configuration
-@ConditionalOnProperty(prefix = "triones.huaweicloud.sms", value = {"enabled"}, havingValue = "true")
+@ConditionalOnProperty(prefix = PREFIX, value = {"enabled"}, havingValue = "true")
 @EnableConfigurationProperties(value = {HuaweiCloudSmsProperties.class})
 public class HuaweiCloudSmAutoConfiguration implements EnvironmentAware, BeanFactoryPostProcessor {
 
@@ -44,7 +46,7 @@ public class HuaweiCloudSmAutoConfiguration implements EnvironmentAware, BeanFac
 
     @Override
     public void setEnvironment(Environment environment) {
-        this.confProperties = Binder.get(environment).bind("triones.huaweicloud.sms", HuaweiCloudSmsProperties.class).get();
+        this.confProperties = Binder.get(environment).bind(PREFIX, HuaweiCloudSmsProperties.class).get();
     }
 
     private void registerBean(DefaultListableBeanFactory beanFactory, ConstructorArgumentValues argumentValues, String beanName) {
