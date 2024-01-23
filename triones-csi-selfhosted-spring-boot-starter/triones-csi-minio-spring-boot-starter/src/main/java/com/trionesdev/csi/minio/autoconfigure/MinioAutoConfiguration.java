@@ -17,9 +17,11 @@ import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
+import static com.trionesdev.csi.minio.autoconfigure.MinioProperties.PREFIX;
+
 @RequiredArgsConstructor
 @Configuration
-@ConditionalOnProperty(prefix = "triones.minio", value = {"enabled"}, havingValue = "true")
+@ConditionalOnProperty(prefix = PREFIX, value = {"enabled"}, havingValue = "true")
 @EnableConfigurationProperties(value = {
         MinioProperties.class
 })
@@ -41,7 +43,7 @@ public class MinioAutoConfiguration implements EnvironmentAware, BeanFactoryPost
 
     @Override
     public void setEnvironment(Environment environment) {
-        minioProperties = Binder.get(environment).bind("triones.minio", MinioProperties.class).get();
+        minioProperties = Binder.get(environment).bind(PREFIX, MinioProperties.class).get();
     }
 
     private void registerBean(DefaultListableBeanFactory beanFactory, MinioClient minioClient, MinioConfig minioConfig, String beanName) {

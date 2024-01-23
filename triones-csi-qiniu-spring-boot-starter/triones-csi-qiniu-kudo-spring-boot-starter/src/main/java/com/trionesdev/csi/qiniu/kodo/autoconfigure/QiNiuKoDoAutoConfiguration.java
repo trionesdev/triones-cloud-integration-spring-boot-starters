@@ -19,9 +19,11 @@ import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
+import static com.trionesdev.csi.qiniu.kodo.autoconfigure.QiNiuKoDoProperties.PREFIX;
+
 @RequiredArgsConstructor
 @Configuration
-@ConditionalOnProperty(prefix = "triones.qiniu.kodo", value = {"enabled"}, havingValue = "true")
+@ConditionalOnProperty(prefix = PREFIX, value = {"enabled"}, havingValue = "true")
 @EnableConfigurationProperties(value = {QiNiuKoDoProperties.class})
 public class QiNiuKoDoAutoConfiguration implements EnvironmentAware, BeanFactoryPostProcessor {
     private QiNiuKoDoProperties qiNiuKoDoProperties;
@@ -46,7 +48,7 @@ public class QiNiuKoDoAutoConfiguration implements EnvironmentAware, BeanFactory
 
     @Override
     public void setEnvironment(Environment environment) {
-        this.qiNiuKoDoProperties = Binder.get(environment).bind("triones.qiniu.kodo", QiNiuKoDoProperties.class).get();
+        this.qiNiuKoDoProperties = Binder.get(environment).bind(PREFIX, QiNiuKoDoProperties.class).get();
     }
 
     private void registerBean(DefaultListableBeanFactory beanFactory, ConstructorArgumentValues argumentValues, String beanName) {

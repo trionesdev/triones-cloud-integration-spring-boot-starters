@@ -18,14 +18,17 @@ import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
+import static com.trionesdev.csi.aliyun.oss.autoconfigure.AliYunOssProperties.PREFIX;
+
 @RequiredArgsConstructor
 @Configuration
-@ConditionalOnProperty(prefix = "triones.aliyun.oss", value = {"enabled"}, havingValue = "true")
+@ConditionalOnProperty(prefix = PREFIX, value = {"enabled"}, havingValue = "true")
 @EnableConfigurationProperties(value = {
         AliYunOssProperties.class
 })
 public class AliYunOssAutoConfiguration implements EnvironmentAware, BeanFactoryPostProcessor {
     private AliYunOssProperties ossProperties;
+
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) configurableListableBeanFactory;
@@ -38,13 +41,13 @@ public class AliYunOssAutoConfiguration implements EnvironmentAware, BeanFactory
         ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
         argumentValues.addIndexedArgumentValue(0, oss);
         argumentValues.addIndexedArgumentValue(1, aliYunOssProperties);
-        registerBean(beanFactory,argumentValues, AliYunOSS.class.getName());
+        registerBean(beanFactory, argumentValues, AliYunOSS.class.getName());
 
     }
 
     @Override
-    public void setEnvironment( Environment environment) {
-        this.ossProperties =  Binder.get(environment).bind("triones.aliyun.oss", AliYunOssProperties.class).get();
+    public void setEnvironment(Environment environment) {
+        this.ossProperties = Binder.get(environment).bind(PREFIX, AliYunOssProperties.class).get();
     }
 
     private void registerBean(DefaultListableBeanFactory beanFactory, ConstructorArgumentValues argumentValues, String beanName) {

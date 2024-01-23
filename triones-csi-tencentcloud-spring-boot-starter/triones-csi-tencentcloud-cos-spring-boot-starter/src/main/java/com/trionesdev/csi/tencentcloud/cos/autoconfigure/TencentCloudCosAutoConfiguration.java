@@ -21,9 +21,11 @@ import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
+import static com.trionesdev.csi.tencentcloud.cos.autoconfigure.TencentCloudCosProperties.PREFIX;
+
 @RequiredArgsConstructor
 @Configuration
-@ConditionalOnProperty(prefix = "triones.tencentcloud.cos", value = {"enabled"}, havingValue = "true")
+@ConditionalOnProperty(prefix = PREFIX, value = {"enabled"}, havingValue = "true")
 @EnableConfigurationProperties(value = {
         TencentCloudCosProperties.class
 })
@@ -49,7 +51,7 @@ public class TencentCloudCosAutoConfiguration implements EnvironmentAware, BeanF
 
     @Override
     public void setEnvironment(Environment environment) {
-        this.tencentCloudCosProperties = Binder.get(environment).bind("triones.tencentcloud.cos", TencentCloudCosProperties.class).get();
+        this.tencentCloudCosProperties = Binder.get(environment).bind(PREFIX, TencentCloudCosProperties.class).get();
     }
 
     private void registerBean(DefaultListableBeanFactory beanFactory, ConstructorArgumentValues argumentValues, String beanName) {

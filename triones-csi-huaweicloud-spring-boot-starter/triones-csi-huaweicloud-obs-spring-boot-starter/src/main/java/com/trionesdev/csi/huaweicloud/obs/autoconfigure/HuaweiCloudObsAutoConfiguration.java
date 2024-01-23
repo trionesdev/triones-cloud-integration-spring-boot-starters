@@ -17,14 +17,17 @@ import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
+import static com.trionesdev.csi.huaweicloud.obs.autoconfigure.HuaweiObsProperties.PREFIX;
+
 @RequiredArgsConstructor
 @Configuration
-@ConditionalOnProperty(prefix = "triones.huaweicloud.obs", value = {"enabled"}, havingValue = "true")
+@ConditionalOnProperty(prefix = PREFIX, value = {"enabled"}, havingValue = "true")
 @EnableConfigurationProperties(value = {
         HuaweiObsProperties.class
 })
 public class HuaweiCloudObsAutoConfiguration implements EnvironmentAware, BeanFactoryPostProcessor {
     private HuaweiObsProperties obsConfProperties;
+
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) configurableListableBeanFactory;
@@ -38,7 +41,7 @@ public class HuaweiCloudObsAutoConfiguration implements EnvironmentAware, BeanFa
 
     @Override
     public void setEnvironment(Environment environment) {
-        this.obsConfProperties = Binder.get(environment).bind("triones.huaweicloud.obs", HuaweiObsProperties.class).get();
+        this.obsConfProperties = Binder.get(environment).bind(PREFIX, HuaweiObsProperties.class).get();
     }
 
     private void registerBean(DefaultListableBeanFactory beanFactory, ConstructorArgumentValues argumentValues, String beanName) {

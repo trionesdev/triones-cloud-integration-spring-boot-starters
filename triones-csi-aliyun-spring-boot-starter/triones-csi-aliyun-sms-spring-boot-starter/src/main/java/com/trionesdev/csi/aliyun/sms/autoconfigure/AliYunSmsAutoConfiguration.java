@@ -19,9 +19,11 @@ import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
+import static com.trionesdev.csi.aliyun.sms.autoconfigure.AliYunSmsProperties.PREFIX;
+
 @RequiredArgsConstructor
 @Configuration
-@ConditionalOnProperty(prefix = "triones.aliyun.sms", value = {"enabled"}, havingValue = "true")
+@ConditionalOnProperty(prefix = PREFIX, value = {"enabled"}, havingValue = "true")
 @EnableConfigurationProperties(value = {AliYunSmsProperties.class})
 public class AliYunSmsAutoConfiguration implements EnvironmentAware, BeanFactoryPostProcessor {
     private AliYunSmsProperties aliYunSmsProperties;
@@ -45,7 +47,7 @@ public class AliYunSmsAutoConfiguration implements EnvironmentAware, BeanFactory
 
     @Override
     public void setEnvironment(Environment environment) {
-        this.aliYunSmsProperties = Binder.get(environment).bind("triones.aliyun.sms", AliYunSmsProperties.class).get();
+        this.aliYunSmsProperties = Binder.get(environment).bind(PREFIX, AliYunSmsProperties.class).get();
     }
 
     private void registerBean(DefaultListableBeanFactory beanFactory, ConstructorArgumentValues argumentValues, String beanName) {

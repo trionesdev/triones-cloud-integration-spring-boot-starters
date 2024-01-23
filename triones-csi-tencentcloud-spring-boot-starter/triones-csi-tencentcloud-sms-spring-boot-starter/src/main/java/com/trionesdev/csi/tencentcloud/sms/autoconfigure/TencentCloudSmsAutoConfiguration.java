@@ -19,10 +19,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.env.Environment;
 
+import static com.trionesdev.csi.tencentcloud.sms.autoconfigure.TencentCloudSmsProperties.PREFIX;
+
 
 @RequiredArgsConstructor
 @Configuration
-@ConditionalOnProperty(prefix = "triones.tencentcloud.sms", value = {"enabled"}, havingValue = "true")
+@ConditionalOnProperty(prefix = PREFIX, value = {"enabled"}, havingValue = "true")
 @EnableConfigurationProperties(value = {
         TencentCloudSmsProperties.class
 })
@@ -49,12 +51,12 @@ public class TencentCloudSmsAutoConfiguration implements EnvironmentAware, BeanF
                 .signName(tencentCloudSmsProperties.getSignName())
                 .templateCodes(tencentCloudSmsProperties.getTemplateCodes())
                 .build();
-        genericApplicationContext.registerBean(TencentCloudSms.class,()->new TencentCloudSms(tencentCloudSmsConfig,smsClient));
+        genericApplicationContext.registerBean(TencentCloudSms.class, () -> new TencentCloudSms(tencentCloudSmsConfig, smsClient));
     }
 
     @Override
     public void setEnvironment(Environment environment) {
-        this.tencentCloudSmsProperties = Binder.get(environment).bind("triones.tencentcloud.sms", TencentCloudSmsProperties.class).get();
+        this.tencentCloudSmsProperties = Binder.get(environment).bind(PREFIX, TencentCloudSmsProperties.class).get();
     }
 
 }
