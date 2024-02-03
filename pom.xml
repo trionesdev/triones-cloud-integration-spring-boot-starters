@@ -23,6 +23,7 @@
         <module>triones-csi-qiniu-spring-boot-starter</module>
         <module>triones-csi-qiniu-spring-boot-starter/triones-csi-qiniu-kudo-spring-boot-starter</module>
         <module>triones-csi-selfhosted-spring-boot-starter</module>
+        <module>triones-csi-azure-spring-boot-starter</module>
     </modules>
 
     <properties>
@@ -117,6 +118,18 @@
             </dependency>
             <!--            quniu-->
 
+            <!--            azure-->
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>triones-csi-azure-blob</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>triones-csi-azure-blob-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--            azure-->
 
             <dependency>
                 <groupId>com.trionesdev.csi</groupId>
