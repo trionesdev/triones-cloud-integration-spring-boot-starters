@@ -10,9 +10,7 @@
     <artifactId>triones-csi-azure-spring-boot-starter</artifactId>
     <packaging>pom</packaging>
     <name>Triones:CSI:Boot:Azure</name>
-    <modules>
-        <module>triones-csi-azure-blob-spring-boot-starter</module>
-    </modules>
+
 
     <dependencies>
         <dependency>

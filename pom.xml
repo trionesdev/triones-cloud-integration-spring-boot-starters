@@ -22,8 +22,10 @@
         <module>triones-csi-tencentcloud-spring-boot-starter/triones-csi-tencentcloud-ocr-spring-boot-starter</module>
         <module>triones-csi-qiniu-spring-boot-starter</module>
         <module>triones-csi-qiniu-spring-boot-starter/triones-csi-qiniu-kudo-spring-boot-starter</module>
-        <module>triones-csi-selfhosted-spring-boot-starter</module>
         <module>triones-csi-azure-spring-boot-starter</module>
+        <module>triones-csi-azure-spring-boot-starter/triones-csi-azure-blob-spring-boot-starter</module>
+        <module>triones-csi-selfhosted-spring-boot-starter</module>
+
     </modules>
 
     <properties>
