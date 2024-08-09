@@ -6,11 +6,23 @@
 > 其他 自托管方案  包含minio
 
 引入依赖
+Spring boot2.x
 ```
 <dependency>
     <groupId>com.trionesdev.csi</groupId>
     <artifactId>triones-cloud-integration-spring-boot-starters</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <type>pom</type>
+    <scope>import</scope>
+</dependency>
+```
+
+Spring boot3.x
+```
+<dependency>
+    <groupId>com.trionesdev.csi</groupId>
+    <artifactId>triones-cloud-integration-spring-boot-starters</artifactId>
+    <version>3.0-SNAPSHOT</version>
     <type>pom</type>
     <scope>import</scope>
 </dependency>
