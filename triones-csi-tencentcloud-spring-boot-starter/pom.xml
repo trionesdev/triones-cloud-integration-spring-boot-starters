@@ -27,8 +27,13 @@
         </dependency>
         <dependency>
             <groupId>com.trionesdev.csi</groupId>
+            <artifactId>triones-csi-tencentcloud-ses-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.trionesdev.csi</groupId>
             <artifactId>triones-csi-tencentcloud-ocr-spring-boot-starter</artifactId>
         </dependency>
+
     </dependencies>
 
 </project>

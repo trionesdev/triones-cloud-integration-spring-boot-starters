@@ -25,6 +25,7 @@
         <module>triones-csi-azure-spring-boot-starter</module>
         <module>triones-csi-azure-spring-boot-starter/triones-csi-azure-blob-spring-boot-starter</module>
         <module>triones-csi-selfhosted-spring-boot-starter</module>
+        <module>triones-csi-tencentcloud-spring-boot-starter/triones-csi-tencentcloud-ses-spring-boot-starter</module>
 
     </modules>
 
@@ -100,6 +101,11 @@
             <dependency>
                 <groupId>com.trionesdev.csi</groupId>
                 <artifactId>triones-csi-tencentcloud-sms-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>triones-csi-tencentcloud-ses-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
