@@ -1,13 +1,8 @@
 package com.trionesdev.csi.tencentcloud.ses.annotation;
 
 
-import com.tencentcloudapi.common.Credential;
-import com.tencentcloudapi.common.profile.ClientProfile;
-import com.tencentcloudapi.common.profile.HttpProfile;
-import com.tencentcloudapi.ses.v20201002.SesClient;
 import com.trionesdev.csi.tencentcloud.ses.TencentCloudSes;
 import com.trionesdev.csi.tencentcloud.ses.TencentCloudSesConfig;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -95,25 +90,16 @@ public class TencentCloudSesClientFactoryBean implements FactoryBean<Object>, In
 
     protected <T> T getTarget() {
         try {
-            Credential credential = new Credential(this.secretId, this.secretKey);
-
-            HttpProfile httpProfile = new HttpProfile();
-            if (StringUtils.isBlank(this.endpoint)) {
-                httpProfile.setEndpoint("ses.tencentcloudapi.com");
-            } else {
-                httpProfile.setEndpoint(this.endpoint);
-            }
-            ClientProfile clientProfile = new ClientProfile();
-            clientProfile.setHttpProfile(httpProfile);
-            SesClient client = new SesClient(credential, this.region, clientProfile);
             TencentCloudSesConfig sesConfig = TencentCloudSesConfig.builder()
+                    .secretId(this.secretId)
+                    .secretKey(this.secretKey)
                     .endpoint(this.endpoint)
                     .region(this.region)
                     .fromAddress(this.fromAddress)
                     .replyAddress(this.replyAddress)
                     .templateCodes(this.templateCodes)
                     .build();
-            TencentCloudSes ses = new TencentCloudSes(sesConfig, client);
+            TencentCloudSes ses = new TencentCloudSes(sesConfig);
 
             return (T) this.type.cast(Proxy.newProxyInstance(this.type.getClassLoader(), new Class[]{this.type}, new InvocationHandler() {
                 @Override

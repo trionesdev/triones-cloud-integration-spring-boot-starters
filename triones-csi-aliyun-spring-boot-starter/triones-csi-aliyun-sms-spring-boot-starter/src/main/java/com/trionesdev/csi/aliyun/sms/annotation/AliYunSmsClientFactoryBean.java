@@ -1,7 +1,5 @@
 package com.trionesdev.csi.aliyun.sms.annotation;
 
-import com.aliyun.dysmsapi20170525.Client;
-import com.aliyun.teaopenapi.models.Config;
 import com.trionesdev.csi.aliyun.sms.AliYunSms;
 import com.trionesdev.csi.aliyun.sms.AliYunSmsConfig;
 import org.springframework.beans.BeansException;
@@ -80,13 +78,15 @@ public class AliYunSmsClientFactoryBean implements FactoryBean<Object>, Initiali
 
     protected <T> T getTarget() {
         try {
-            Config config = new Config().setAccessKeyId(this.accessKeyId).setAccessKeySecret(this.accessKeySecret);
+
             AliYunSmsConfig aliYunSmsConfig = AliYunSmsConfig.builder()
+                    .accessKeyId(accessKeyId)
+                    .accessKeySecret(accessKeySecret)
                     .regionId(this.regionId)
                     .signName(this.signName)
                     .templateCodes(this.templateCodes)
                     .build();
-            AliYunSms sms = new AliYunSms(new Client(config), aliYunSmsConfig);
+            AliYunSms sms = new AliYunSms( aliYunSmsConfig);
             return (T) this.type.cast(Proxy.newProxyInstance(this.type.getClassLoader(), new Class[]{this.type}, new InvocationHandler() {
                 @Override
                 public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {

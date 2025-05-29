@@ -1,10 +1,6 @@
 package com.trionesdev.csi.tencentcloud.sms.annotation;
 
 
-import com.tencentcloudapi.common.Credential;
-import com.tencentcloudapi.common.profile.ClientProfile;
-import com.tencentcloudapi.common.profile.HttpProfile;
-import com.tencentcloudapi.sms.v20210111.SmsClient;
 import com.trionesdev.csi.tencentcloud.sms.TencentCloudSms;
 import com.trionesdev.csi.tencentcloud.sms.TencentCloudSmsConfig;
 import org.springframework.beans.BeansException;
@@ -84,22 +80,14 @@ public class TencentCloudSmsClientFactoryBean implements FactoryBean<Object>, In
 
     protected <T> T getTarget() {
         try {
-            HttpProfile httpProfile = new HttpProfile();
-            httpProfile.setReqMethod("POST");
-            httpProfile.setConnTimeout(60);
-            httpProfile.setEndpoint("sms.tencentcloudapi.com");
-            ClientProfile clientProfile = new ClientProfile();
-            clientProfile.setSignMethod("HmacSHA256");
-            clientProfile.setHttpProfile(httpProfile);
-
-            Credential credential = new Credential(this.secretId, this.secretKey);
-            SmsClient smsClient = new SmsClient(credential, "ap-guangzhou", clientProfile);
             TencentCloudSmsConfig tencentCloudSmsConfig = TencentCloudSmsConfig.builder()
+                    .secretId(this.secretId)
+                    .secretKey(this.secretKey)
                     .sdkAppId(this.sdkAppId)
                     .signName(this.signName)
                     .templateCodes(this.templateCodes)
                     .build();
-            TencentCloudSms sms = new TencentCloudSms(tencentCloudSmsConfig, smsClient);
+            TencentCloudSms sms = new TencentCloudSms(tencentCloudSmsConfig);
             return (T) this.type.cast(Proxy.newProxyInstance(this.type.getClassLoader(), new Class[]{this.type}, new InvocationHandler() {
                 @Override
                 public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {

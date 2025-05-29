@@ -1,12 +1,9 @@
 package com.trionesdev.csi.tencentcloud.sms.autoconfigure;
 
-import com.tencentcloudapi.common.Credential;
-import com.tencentcloudapi.common.profile.ClientProfile;
-import com.tencentcloudapi.common.profile.HttpProfile;
-import com.tencentcloudapi.sms.v20210111.SmsClient;
 import com.trionesdev.csi.tencentcloud.sms.TencentCloudSms;
 import com.trionesdev.csi.tencentcloud.sms.TencentCloudSmsConfig;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -30,33 +27,26 @@ import static com.trionesdev.csi.tencentcloud.sms.autoconfigure.TencentCloudSmsP
 })
 public class TencentCloudSmsAutoConfiguration implements EnvironmentAware, BeanFactoryPostProcessor {
 
-    private TencentCloudSmsProperties tencentCloudSmsProperties;
+    private TencentCloudSmsProperties smsProperties;
 
     @Override
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
+    public void postProcessBeanFactory(@NotNull ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) configurableListableBeanFactory;
         GenericApplicationContext genericApplicationContext = new GenericApplicationContext(beanFactory);
-        HttpProfile httpProfile = new HttpProfile();
-        httpProfile.setReqMethod("POST");
-        httpProfile.setConnTimeout(60);
-        httpProfile.setEndpoint("sms.tencentcloudapi.com");
-        ClientProfile clientProfile = new ClientProfile();
-        clientProfile.setSignMethod("HmacSHA256");
-        clientProfile.setHttpProfile(httpProfile);
 
-        Credential credential = new Credential(tencentCloudSmsProperties.getSecretId(), tencentCloudSmsProperties.getSecretKey());
-        SmsClient smsClient = new SmsClient(credential, "ap-guangzhou", clientProfile);
         TencentCloudSmsConfig tencentCloudSmsConfig = TencentCloudSmsConfig.builder()
-                .sdkAppId(tencentCloudSmsProperties.getSdkAppId())
-                .signName(tencentCloudSmsProperties.getSignName())
-                .templateCodes(tencentCloudSmsProperties.getTemplateCodes())
+                .secretId(smsProperties.getSecretId())
+                .secretKey(smsProperties.getSecretKey())
+                .sdkAppId(smsProperties.getSdkAppId())
+                .signName(smsProperties.getSignName())
+                .templateCodes(smsProperties.getTemplateCodes())
                 .build();
-        genericApplicationContext.registerBean(TencentCloudSms.class, () -> new TencentCloudSms(tencentCloudSmsConfig, smsClient));
+        genericApplicationContext.registerBean(TencentCloudSms.class, () -> new TencentCloudSms(tencentCloudSmsConfig));
     }
 
     @Override
-    public void setEnvironment(Environment environment) {
-        this.tencentCloudSmsProperties = Binder.get(environment).bind(PREFIX, TencentCloudSmsProperties.class).get();
+    public void setEnvironment(@NotNull Environment environment) {
+        this.smsProperties = Binder.get(environment).bind(PREFIX, TencentCloudSmsProperties.class).get();
     }
 
 }

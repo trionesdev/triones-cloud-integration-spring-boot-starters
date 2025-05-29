@@ -2,7 +2,6 @@ package com.trionesdev.csi.minio.annotation;
 
 import com.trionesdev.csi.minio.Minio;
 import com.trionesdev.csi.minio.MinioConfig;
-import io.minio.MinioClient;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -75,14 +74,15 @@ public class MinioFactoryBean implements FactoryBean<Object>, InitializingBean,
     }
 
     protected <T> T getTarget() {
-        MinioClient minioClient = MinioClient.builder().endpoint(this.endpoint)
-                .credentials(this.accessKey, this.secretKey)
-                .build();
+
         MinioConfig minioConfig = MinioConfig.builder()
+                .accessKey(this.accessKey)
+                .secretKey(this.secretKey)
+                .endpoint(this.endpoint)
                 .bucket(this.bucket)
                 .urlPrefix(this.urlPrefix)
                 .build();
-        Minio minio = new Minio(minioClient, minioConfig);
+        Minio minio = new Minio(  minioConfig);
         return (T) this.type.cast(Proxy.newProxyInstance(this.type.getClassLoader(), new Class[]{this.type}, (proxy, method, args) -> method.invoke(minio, args)));
     }
 }

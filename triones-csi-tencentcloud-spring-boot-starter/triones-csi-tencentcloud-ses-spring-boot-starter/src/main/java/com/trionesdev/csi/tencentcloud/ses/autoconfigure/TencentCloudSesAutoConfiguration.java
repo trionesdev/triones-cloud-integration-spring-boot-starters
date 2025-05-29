@@ -1,13 +1,9 @@
 package com.trionesdev.csi.tencentcloud.ses.autoconfigure;
 
-import com.tencentcloudapi.common.Credential;
-import com.tencentcloudapi.common.profile.ClientProfile;
-import com.tencentcloudapi.common.profile.HttpProfile;
-import com.tencentcloudapi.ses.v20201002.SesClient;
 import com.trionesdev.csi.tencentcloud.ses.TencentCloudSes;
 import com.trionesdev.csi.tencentcloud.ses.TencentCloudSesConfig;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -29,35 +25,27 @@ import static com.trionesdev.csi.tencentcloud.ses.autoconfigure.TencentCloudSesP
         TencentCloudSesProperties.class
 })
 public class TencentCloudSesAutoConfiguration implements EnvironmentAware, BeanFactoryPostProcessor {
-    private TencentCloudSesProperties tencentCloudSesProperties;
+    private TencentCloudSesProperties sesProperties;
 
     @Override
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
+    public void postProcessBeanFactory(@NotNull ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) configurableListableBeanFactory;
         GenericApplicationContext genericApplicationContext = new GenericApplicationContext(beanFactory);
 
-        Credential cred = new Credential(tencentCloudSesProperties.getSecretId(), tencentCloudSesProperties.getSecretKey());
-        HttpProfile httpProfile = new HttpProfile();
-        if (StringUtils.isBlank(tencentCloudSesProperties.getEndpoint())) {
-            httpProfile.setEndpoint("ses.tencentcloudapi.com");
-        } else {
-            httpProfile.setEndpoint(tencentCloudSesProperties.getEndpoint());
-        }
-        ClientProfile clientProfile = new ClientProfile();
-        clientProfile.setHttpProfile(httpProfile);
-        SesClient client = new SesClient(cred, tencentCloudSesProperties.getRegion(), clientProfile);
         TencentCloudSesConfig sesConfig = TencentCloudSesConfig.builder()
-                .endpoint(tencentCloudSesProperties.getEndpoint())
-                .region(tencentCloudSesProperties.getRegion())
-                .fromAddress(tencentCloudSesProperties.getFromAddress())
-                .replyAddress(tencentCloudSesProperties.getReplyAddress())
-                .templateCodes(tencentCloudSesProperties.getTemplateCodes())
+                .secretId(sesProperties.getSecretId())
+                .secretKey(sesProperties.getSecretKey())
+                .endpoint(sesProperties.getEndpoint())
+                .region(sesProperties.getRegion())
+                .fromAddress(sesProperties.getFromAddress())
+                .replyAddress(sesProperties.getReplyAddress())
+                .templateCodes(sesProperties.getTemplateCodes())
                 .build();
-        genericApplicationContext.registerBean(TencentCloudSes.class, () -> new TencentCloudSes(sesConfig, client));
+        genericApplicationContext.registerBean(TencentCloudSes.class, () -> new TencentCloudSes(sesConfig));
     }
 
     @Override
-    public void setEnvironment(Environment environment) {
-        this.tencentCloudSesProperties = Binder.get(environment).bind(PREFIX, TencentCloudSesProperties.class).get();
+    public void setEnvironment(@NotNull Environment environment) {
+        this.sesProperties = Binder.get(environment).bind(PREFIX, TencentCloudSesProperties.class).get();
     }
 }

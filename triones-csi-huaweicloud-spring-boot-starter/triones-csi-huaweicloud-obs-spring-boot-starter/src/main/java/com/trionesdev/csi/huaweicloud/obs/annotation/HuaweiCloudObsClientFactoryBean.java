@@ -3,7 +3,6 @@ package com.trionesdev.csi.huaweicloud.obs.annotation;
 
 import com.trionesdev.csi.huaweicloud.obs.HuaweiCloudObs;
 import com.trionesdev.csi.huaweicloud.obs.HuaweiCloudObsConfig;
-import com.obs.services.ObsClient;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -79,18 +77,17 @@ public class HuaweiCloudObsClientFactoryBean implements FactoryBean<Object>, Ini
     }
 
     protected <T> T getTarget() {
-        try (ObsClient obsClient = new ObsClient(this.accessKeyId, this.secretAccessKey, this.endpoint)) {
-            HuaweiCloudObsConfig huaweiCloudObsConfig = HuaweiCloudObsConfig.builder().bucket(this.bucket).urlPrefix(this.urlPrefix).build();
-            HuaweiCloudObs obs = new HuaweiCloudObs(obsClient, huaweiCloudObsConfig);
-            return (T) this.type.cast(Proxy.newProxyInstance(this.type.getClassLoader(), new Class[]{this.type}, new InvocationHandler() {
-                @Override
-                public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                    return method.invoke(obs, args);
-                }
-            }));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+        HuaweiCloudObsConfig huaweiCloudObsConfig = HuaweiCloudObsConfig.builder()
+                .accessKeyId(this.accessKeyId)
+                .secretAccessKey(this.secretAccessKey)
+                .endpoint(this.endpoint)
+                .bucket(this.bucket).urlPrefix(this.urlPrefix).build();
+        HuaweiCloudObs obs = new HuaweiCloudObs(huaweiCloudObsConfig);
+        return (T) this.type.cast(Proxy.newProxyInstance(this.type.getClassLoader(), new Class[]{this.type}, new InvocationHandler() {
+            @Override
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                return method.invoke(obs, args);
+            }
+        }));
     }
 }

@@ -1,11 +1,9 @@
 package com.trionesdev.csi.azure.blob.annotation;
 
-import com.azure.storage.blob.BlobContainerClient;
-import com.azure.storage.blob.BlobServiceClient;
-import com.azure.storage.blob.BlobServiceClientBuilder;
 import com.trionesdev.csi.azure.blob.AzureBlob;
 import com.trionesdev.csi.azure.blob.AzureBlobConfig;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -33,7 +31,7 @@ public class AzureBlobClientFactoryBean implements FactoryBean<Object>, Initiali
     private ApplicationContext applicationContext;
 
     @Override
-    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+    public void setBeanFactory(@NotNull BeanFactory beanFactory) throws BeansException {
         this.beanFactory = beanFactory;
     }
 
@@ -53,21 +51,17 @@ public class AzureBlobClientFactoryBean implements FactoryBean<Object>, Initiali
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(@NotNull ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
 
     protected <T> T getTarget() {
-        BlobServiceClient blobServiceClient = new BlobServiceClientBuilder()
-                .connectionString(this.connectionString)
-                .buildClient();
-
-        // 获取 BlobContainerClient 对象
-        BlobContainerClient containerClient = blobServiceClient.getBlobContainerClient(this.containerName);
         AzureBlobConfig blobConfig = AzureBlobConfig.builder()
+                .connectionString(this.connectionString)
+                .containerName(this.containerName)
                 .urlPrefix(urlPrefix)
                 .build();
-        AzureBlob azureBlob = new AzureBlob(containerClient, blobConfig);
+        AzureBlob azureBlob = new AzureBlob( blobConfig);
         return (T) this.type.cast(Proxy.newProxyInstance(this.type.getClassLoader(), new Class[]{this.type}, new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {

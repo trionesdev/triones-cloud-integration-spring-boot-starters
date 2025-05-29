@@ -1,9 +1,5 @@
 package com.trionesdev.csi.qiniu.kodo.annotation;
 
-import com.qiniu.storage.Configuration;
-import com.qiniu.storage.Region;
-import com.qiniu.storage.UploadManager;
-import com.qiniu.util.Auth;
 import com.trionesdev.csi.qiniu.kodo.QiNiuKoDo;
 import com.trionesdev.csi.qiniu.kodo.QiNiuKoDoConfig;
 import org.springframework.beans.BeansException;
@@ -75,14 +71,13 @@ public class QiNiuKoDoClientFactoryBean implements FactoryBean<Object>, Initiali
     }
 
     protected <T> T getTarget() {
-        Auth auth = Auth.create(this.accessKey, this.secretKey);
-        Configuration cfg = new com.qiniu.storage.Configuration(Region.autoRegion());
-        UploadManager uploadManager = new UploadManager(cfg);
         QiNiuKoDoConfig qiNiuKoDoConfig = QiNiuKoDoConfig.builder()
+                .accessKey(this.accessKey)
+                .secretKey(this.secretKey)
                 .bucket(this.bucket)
                 .urlPrefix(this.urlPrefix)
                 .build();
-        QiNiuKoDo koDo = new QiNiuKoDo(auth, uploadManager, qiNiuKoDoConfig);
+        QiNiuKoDo koDo = new QiNiuKoDo(qiNiuKoDoConfig);
         return (T) this.type.cast(Proxy.newProxyInstance(this.type.getClassLoader(), new Class[]{this.type}, new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {

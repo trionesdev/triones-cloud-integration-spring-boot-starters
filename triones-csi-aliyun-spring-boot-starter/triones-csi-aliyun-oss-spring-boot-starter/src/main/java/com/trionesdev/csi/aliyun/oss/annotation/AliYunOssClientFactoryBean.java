@@ -1,7 +1,5 @@
 package com.trionesdev.csi.aliyun.oss.annotation;
 
-import com.aliyun.oss.OSS;
-import com.aliyun.oss.OSSClientBuilder;
 import com.trionesdev.csi.aliyun.oss.AliYunOSS;
 import com.trionesdev.csi.aliyun.oss.AliYunOssConfig;
 import lombok.Setter;
@@ -61,12 +59,14 @@ public class AliYunOssClientFactoryBean implements FactoryBean<Object>, Initiali
     }
 
     protected <T> T getTarget() {
-        OSS oss = new OSSClientBuilder().build(this.endpoint, this.accessKeyId, this.accessKeySecret);
         AliYunOssConfig aliYunOssConfig = AliYunOssConfig.builder()
+                .accessKeyId(this.accessKeyId)
+                .accessKeySecret(this.accessKeySecret)
+                .endpoint(this.endpoint)
                 .bucket(this.bucket)
                 .urlPrefix(this.urlPrefix)
                 .build();
-        AliYunOSS aliYunOSS = new AliYunOSS(oss, aliYunOssConfig);
+        AliYunOSS aliYunOSS = new AliYunOSS(aliYunOssConfig);
         return (T) this.type.cast(Proxy.newProxyInstance(this.type.getClassLoader(), new Class[]{this.type}, new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {

@@ -1,13 +1,9 @@
 package com.trionesdev.csi.tencentcloud.cos.autoconfigure;
 
-import com.qcloud.cos.COSClient;
-import com.qcloud.cos.ClientConfig;
-import com.qcloud.cos.auth.BasicCOSCredentials;
-import com.qcloud.cos.auth.COSCredentials;
-import com.qcloud.cos.region.Region;
 import com.trionesdev.csi.tencentcloud.cos.TencentCloudCos;
 import com.trionesdev.csi.tencentcloud.cos.TencentCloudCosConfig;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -34,23 +30,22 @@ public class TencentCloudCosAutoConfiguration implements EnvironmentAware, BeanF
     private TencentCloudCosProperties tencentCloudCosProperties;
 
     @Override
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
+    public void postProcessBeanFactory(@NotNull ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) configurableListableBeanFactory;
-        COSCredentials cred = new BasicCOSCredentials(tencentCloudCosProperties.getSecretId(), tencentCloudCosProperties.getSecretKey());
-        ClientConfig clientConfig = new ClientConfig(new Region(tencentCloudCosProperties.getRegion()));
-        COSClient cosClient = new COSClient(cred, clientConfig);
         TencentCloudCosConfig tencentCloudCosConfig = TencentCloudCosConfig.builder()
+                .accessKey(tencentCloudCosProperties.getAccessKey())
+                .secretKey(tencentCloudCosProperties.getSecretKey())
+                .region(tencentCloudCosProperties.getRegion())
                 .bucket(tencentCloudCosProperties.getBucket())
                 .urlPrefix(tencentCloudCosProperties.getUrlPrefix())
                 .build();
         ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
-        argumentValues.addIndexedArgumentValue(0, cosClient);
-        argumentValues.addIndexedArgumentValue(1, tencentCloudCosConfig);
+        argumentValues.addIndexedArgumentValue(0, tencentCloudCosConfig);
         registerBean(beanFactory, argumentValues, TencentCloudCos.class.getName());
     }
 
     @Override
-    public void setEnvironment(Environment environment) {
+    public void setEnvironment(@NotNull Environment environment) {
         this.tencentCloudCosProperties = Binder.get(environment).bind(PREFIX, TencentCloudCosProperties.class).get();
     }
 

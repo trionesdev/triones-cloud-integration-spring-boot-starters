@@ -1,11 +1,9 @@
 package com.trionesdev.csi.qiniu.kodo.autoconfigure;
 
-import com.qiniu.storage.Region;
-import com.qiniu.storage.UploadManager;
-import com.qiniu.util.Auth;
 import com.trionesdev.csi.qiniu.kodo.QiNiuKoDo;
 import com.trionesdev.csi.qiniu.kodo.QiNiuKoDoConfig;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -29,25 +27,21 @@ public class QiNiuKoDoAutoConfiguration implements EnvironmentAware, BeanFactory
     private QiNiuKoDoProperties qiNiuKoDoProperties;
 
     @Override
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
+    public void postProcessBeanFactory(@NotNull ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) configurableListableBeanFactory;
-        Auth auth = Auth.create(qiNiuKoDoProperties.getAccessKey(), qiNiuKoDoProperties.getSecretKey());
-        com.qiniu.storage.Configuration cfg = new com.qiniu.storage.Configuration(Region.autoRegion());
-        UploadManager uploadManager = new UploadManager(cfg);
-
         QiNiuKoDoConfig qiNiuKoDoConfig = QiNiuKoDoConfig.builder()
+                .accessKey(qiNiuKoDoProperties.getAccessKey())
+                .secretKey(qiNiuKoDoProperties.getSecretKey())
                 .bucket(qiNiuKoDoProperties.getBucket())
                 .urlPrefix(qiNiuKoDoProperties.getUrlPrefix())
                 .build();
         ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
-        argumentValues.addIndexedArgumentValue(0, auth);
-        argumentValues.addIndexedArgumentValue(1, uploadManager);
-        argumentValues.addIndexedArgumentValue(2, qiNiuKoDoConfig);
+        argumentValues.addIndexedArgumentValue(0, qiNiuKoDoConfig);
         registerBean(beanFactory, argumentValues, QiNiuKoDo.class.getName());
     }
 
     @Override
-    public void setEnvironment(Environment environment) {
+    public void setEnvironment(@NotNull Environment environment) {
         this.qiNiuKoDoProperties = Binder.get(environment).bind(PREFIX, QiNiuKoDoProperties.class).get();
     }
 

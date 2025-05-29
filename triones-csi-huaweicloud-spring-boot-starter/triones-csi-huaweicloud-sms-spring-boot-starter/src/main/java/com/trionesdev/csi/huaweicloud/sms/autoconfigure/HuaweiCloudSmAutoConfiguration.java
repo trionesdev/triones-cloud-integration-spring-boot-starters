@@ -1,9 +1,9 @@
 package com.trionesdev.csi.huaweicloud.sms.autoconfigure;
 
 import com.trionesdev.csi.huaweicloud.sms.HuaweiCloudSms;
-import com.trionesdev.csi.huaweicloud.sms.HuaweiCloudSmsClient;
 import com.trionesdev.csi.huaweicloud.sms.HuaweiCloudSmsConfig;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -28,24 +28,25 @@ public class HuaweiCloudSmAutoConfiguration implements EnvironmentAware, BeanFac
     private HuaweiCloudSmsProperties confProperties;
 
     @Override
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
+    public void postProcessBeanFactory(@NotNull ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) configurableListableBeanFactory;
-        HuaweiCloudSmsClient smsClient = new HuaweiCloudSmsClient(confProperties.getAppKey(), confProperties.getAppSecret());
+
         HuaweiCloudSmsConfig smsConfig = HuaweiCloudSmsConfig.builder()
+                .appKey(confProperties.getAppKey())
+                .appSecret(confProperties.getAppSecret())
                 .sender(confProperties.getSender())
                 .regionId(confProperties.getRegionId())
                 .signName(confProperties.getSignName())
                 .templateCodes(confProperties.getTemplateCodes())
                 .build();
         ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
-        argumentValues.addIndexedArgumentValue(0, smsClient);
-        argumentValues.addIndexedArgumentValue(1, smsConfig);
+        argumentValues.addIndexedArgumentValue(0, smsConfig);
         registerBean(beanFactory, argumentValues, HuaweiCloudSms.class.getName());
 
     }
 
     @Override
-    public void setEnvironment(Environment environment) {
+    public void setEnvironment(@NotNull Environment environment) {
         this.confProperties = Binder.get(environment).bind(PREFIX, HuaweiCloudSmsProperties.class).get();
     }
 

@@ -1,10 +1,5 @@
 package com.trionesdev.csi.tencentcloud.cos.annotation;
 
-import com.qcloud.cos.COSClient;
-import com.qcloud.cos.ClientConfig;
-import com.qcloud.cos.auth.BasicCOSCredentials;
-import com.qcloud.cos.auth.COSCredentials;
-import com.qcloud.cos.region.Region;
 import com.trionesdev.csi.tencentcloud.cos.TencentCloudCos;
 import com.trionesdev.csi.tencentcloud.cos.TencentCloudCosConfig;
 import org.springframework.beans.BeansException;
@@ -81,14 +76,14 @@ public class TencentCloudCosClientFactoryBean implements FactoryBean<Object>, In
     }
 
     protected <T> T getTarget() {
-        COSCredentials cred = new BasicCOSCredentials(this.accessKey, this.secretKey);
-        ClientConfig clientConfig = new ClientConfig(new Region(this.region));
-        COSClient cosClient = new COSClient(cred, clientConfig);
         TencentCloudCosConfig tencentCloudCosConfig = TencentCloudCosConfig.builder()
+                .accessKey(this.accessKey)
+                .secretKey(this.secretKey)
+                .region(this.region)
                 .bucket(this.bucket)
                 .urlPrefix(this.urlPrefix)
                 .build();
-        TencentCloudCos cos = new TencentCloudCos(cosClient, tencentCloudCosConfig);
+        TencentCloudCos cos = new TencentCloudCos(tencentCloudCosConfig);
         return (T) this.type.cast(Proxy.newProxyInstance(this.type.getClassLoader(), new Class[]{this.type}, new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {

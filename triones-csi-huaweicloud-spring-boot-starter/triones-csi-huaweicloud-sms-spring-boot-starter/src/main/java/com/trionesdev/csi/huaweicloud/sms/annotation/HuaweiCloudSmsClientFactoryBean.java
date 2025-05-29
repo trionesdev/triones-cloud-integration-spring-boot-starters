@@ -1,7 +1,6 @@
 package com.trionesdev.csi.huaweicloud.sms.annotation;
 
 import com.trionesdev.csi.huaweicloud.sms.HuaweiCloudSms;
-import com.trionesdev.csi.huaweicloud.sms.HuaweiCloudSmsClient;
 import com.trionesdev.csi.huaweicloud.sms.HuaweiCloudSmsConfig;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
@@ -80,13 +79,14 @@ public class HuaweiCloudSmsClientFactoryBean implements FactoryBean<Object>, Ini
 
     protected <T> T getTarget() {
         try {
-            HuaweiCloudSmsClient smsClient = new HuaweiCloudSmsClient(this.appKey, this.appSecret);
             HuaweiCloudSmsConfig smsConfig = HuaweiCloudSmsConfig.builder()
+                    .appKey(this.appKey)
+                    .appSecret(this.appSecret)
                     .regionId(this.regionId)
                     .signName(this.signName)
                     .templateCodes(this.templateCodes)
                     .build();
-            HuaweiCloudSms sms = new HuaweiCloudSms(smsClient, smsConfig);
+            HuaweiCloudSms sms = new HuaweiCloudSms( smsConfig);
             return (T) this.type.cast(Proxy.newProxyInstance(this.type.getClassLoader(), new Class[]{this.type}, new InvocationHandler() {
                 @Override
                 public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {

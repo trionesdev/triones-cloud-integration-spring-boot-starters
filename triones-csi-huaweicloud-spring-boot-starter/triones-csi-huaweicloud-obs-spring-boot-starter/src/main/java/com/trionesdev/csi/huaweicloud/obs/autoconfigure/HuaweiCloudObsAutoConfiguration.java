@@ -2,8 +2,8 @@ package com.trionesdev.csi.huaweicloud.obs.autoconfigure;
 
 import com.trionesdev.csi.huaweicloud.obs.HuaweiCloudObs;
 import com.trionesdev.csi.huaweicloud.obs.HuaweiCloudObsConfig;
-import com.obs.services.ObsClient;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -29,18 +29,20 @@ public class HuaweiCloudObsAutoConfiguration implements EnvironmentAware, BeanFa
     private HuaweiObsProperties obsConfProperties;
 
     @Override
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
+    public void postProcessBeanFactory(@NotNull ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) configurableListableBeanFactory;
-        ObsClient obsClient = new ObsClient(obsConfProperties.getAccessKeyId(), obsConfProperties.getSecretAccessKey(), obsConfProperties.getEndpoint());
-        HuaweiCloudObsConfig huaweiCloudObsConfig = HuaweiCloudObsConfig.builder().bucket(obsConfProperties.getBucket()).urlPrefix(obsConfProperties.getUrlPrefix()).build();
+        HuaweiCloudObsConfig huaweiCloudObsConfig = HuaweiCloudObsConfig.builder()
+                .accessKeyId(obsConfProperties.getAccessKeyId())
+                .secretAccessKey(obsConfProperties.getSecretAccessKey())
+                .endpoint(obsConfProperties.getEndpoint())
+                .bucket(obsConfProperties.getBucket()).urlPrefix(obsConfProperties.getUrlPrefix()).build();
         ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
-        argumentValues.addIndexedArgumentValue(0, obsClient);
-        argumentValues.addIndexedArgumentValue(1, huaweiCloudObsConfig);
+        argumentValues.addIndexedArgumentValue(0, huaweiCloudObsConfig);
         registerBean(beanFactory, argumentValues, HuaweiCloudObs.class.getName());
     }
 
     @Override
-    public void setEnvironment(Environment environment) {
+    public void setEnvironment(@NotNull Environment environment) {
         this.obsConfProperties = Binder.get(environment).bind(PREFIX, HuaweiObsProperties.class).get();
     }
 

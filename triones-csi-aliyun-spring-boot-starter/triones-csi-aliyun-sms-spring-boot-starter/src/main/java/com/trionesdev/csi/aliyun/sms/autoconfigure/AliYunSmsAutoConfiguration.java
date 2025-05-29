@@ -1,11 +1,10 @@
 package com.trionesdev.csi.aliyun.sms.autoconfigure;
 
-import com.aliyun.dysmsapi20170525.Client;
-import com.aliyun.teaopenapi.models.Config;
 import com.trionesdev.csi.aliyun.sms.AliYunSms;
 import com.trionesdev.csi.aliyun.sms.AliYunSmsConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -30,23 +29,23 @@ public class AliYunSmsAutoConfiguration implements EnvironmentAware, BeanFactory
 
     @SneakyThrows
     @Override
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
+    public void postProcessBeanFactory(@NotNull ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) configurableListableBeanFactory;
-        Config config = new Config().setAccessKeyId(aliYunSmsProperties.getAccessKeyId()).setAccessKeySecret(aliYunSmsProperties.getAccessKeySecret());
         AliYunSmsConfig aliYunSmsConfig = AliYunSmsConfig.builder()
+                .accessKeyId(aliYunSmsProperties.getAccessKeyId())
+                .accessKeySecret(aliYunSmsProperties.getAccessKeySecret())
                 .regionId(aliYunSmsProperties.getRegionId())
                 .signName(aliYunSmsProperties.getSignName())
                 .templateCodes(aliYunSmsProperties.getTemplateCodes())
                 .build();
         ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
-        argumentValues.addIndexedArgumentValue(0, new Client(config));
-        argumentValues.addIndexedArgumentValue(1, aliYunSmsConfig);
+        argumentValues.addIndexedArgumentValue(0, aliYunSmsConfig);
         registerBean(beanFactory, argumentValues, AliYunSms.class.getName());
 
     }
 
     @Override
-    public void setEnvironment(Environment environment) {
+    public void setEnvironment(@NotNull Environment environment) {
         this.aliYunSmsProperties = Binder.get(environment).bind(PREFIX, AliYunSmsProperties.class).get();
     }
 

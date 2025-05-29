@@ -2,8 +2,8 @@ package com.trionesdev.csi.minio.autoconfigure;
 
 import com.trionesdev.csi.minio.Minio;
 import com.trionesdev.csi.minio.MinioConfig;
-import io.minio.MinioClient;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -29,29 +29,28 @@ public class MinioAutoConfiguration implements EnvironmentAware, BeanFactoryPost
     private MinioProperties minioProperties;
 
     @Override
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
+    public void postProcessBeanFactory(@NotNull ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) configurableListableBeanFactory;
-        MinioClient minioClient = MinioClient.builder().endpoint(minioProperties.getEndpoint())
-                .credentials(minioProperties.getAccessKey(), minioProperties.getSecretKey())
-                .build();
         MinioConfig minioConfig = MinioConfig.builder()
+                .accessKey(minioProperties.getAccessKey())
+                .secretKey(minioProperties.getSecretKey())
+                .endpoint(minioProperties.getEndpoint())
                 .bucket(minioProperties.getBucket())
                 .urlPrefix(minioProperties.getUrlPrefix())
                 .build();
-        registerBean(beanFactory, minioClient, minioConfig, Minio.class.getName());
+        registerBean(beanFactory, minioConfig, Minio.class.getName());
     }
 
     @Override
-    public void setEnvironment(Environment environment) {
+    public void setEnvironment(@NotNull Environment environment) {
         minioProperties = Binder.get(environment).bind(PREFIX, MinioProperties.class).get();
     }
 
-    private void registerBean(DefaultListableBeanFactory beanFactory, MinioClient minioClient, MinioConfig minioConfig, String beanName) {
+    private void registerBean(DefaultListableBeanFactory beanFactory, MinioConfig minioConfig, String beanName) {
         GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
         beanDefinition.setBeanClass(Minio.class);
         beanDefinition.setBeanClassName(Minio.class.getName());
         ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
-        argumentValues.addIndexedArgumentValue(0, minioClient);
         argumentValues.addIndexedArgumentValue(1, minioConfig);
         beanDefinition.setConstructorArgumentValues(argumentValues);
 

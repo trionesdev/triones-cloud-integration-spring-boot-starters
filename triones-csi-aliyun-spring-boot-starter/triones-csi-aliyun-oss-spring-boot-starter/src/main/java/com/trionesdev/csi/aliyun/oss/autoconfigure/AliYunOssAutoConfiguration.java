@@ -1,10 +1,9 @@
 package com.trionesdev.csi.aliyun.oss.autoconfigure;
 
-import com.aliyun.oss.OSS;
-import com.aliyun.oss.OSSClientBuilder;
 import com.trionesdev.csi.aliyun.oss.AliYunOSS;
 import com.trionesdev.csi.aliyun.oss.AliYunOssConfig;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -30,23 +29,23 @@ public class AliYunOssAutoConfiguration implements EnvironmentAware, BeanFactory
     private AliYunOssProperties ossProperties;
 
     @Override
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
+    public void postProcessBeanFactory(@NotNull ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
         DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) configurableListableBeanFactory;
-        new OSSClientBuilder();
-        OSS oss = new OSSClientBuilder().build(ossProperties.getEndpoint(), ossProperties.getAccessKeyId(), ossProperties.getAccessKeySecret());
         AliYunOssConfig aliYunOssProperties = AliYunOssConfig.builder()
+                .accessKeyId(ossProperties.getAccessKeyId())
+                .accessKeySecret(ossProperties.getAccessKeySecret())
+                .endpoint(ossProperties.getEndpoint())
                 .bucket(ossProperties.getBucket())
                 .urlPrefix(ossProperties.getUrlPrefix())
                 .build();
         ConstructorArgumentValues argumentValues = new ConstructorArgumentValues();
-        argumentValues.addIndexedArgumentValue(0, oss);
-        argumentValues.addIndexedArgumentValue(1, aliYunOssProperties);
+        argumentValues.addIndexedArgumentValue(0, aliYunOssProperties);
         registerBean(beanFactory, argumentValues, AliYunOSS.class.getName());
 
     }
 
     @Override
-    public void setEnvironment(Environment environment) {
+    public void setEnvironment(@NotNull Environment environment) {
         this.ossProperties = Binder.get(environment).bind(PREFIX, AliYunOssProperties.class).get();
     }
 
