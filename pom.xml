@@ -7,7 +7,7 @@
     <groupId>com.trionesdev.csi</groupId>
     <artifactId>triones-cloud-integration-spring-boot-starters</artifactId>
     <packaging>pom</packaging>
-    <version>3.0-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
     <name>Triones:CloudIntegrations:BootStarters</name>
     <modules>
         <module>triones-csi-aliyun-spring-boot-starter</module>
@@ -41,7 +41,7 @@
             <dependency>
                 <groupId>com.trionesdev.csi</groupId>
                 <artifactId>triones-csi-spring-boot-dependencies</artifactId>
-                <version>3.0-SNAPSHOT</version>
+                <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
