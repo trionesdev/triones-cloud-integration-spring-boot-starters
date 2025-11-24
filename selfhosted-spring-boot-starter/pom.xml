@@ -13,7 +13,7 @@
     </modules>
     <modelVersion>4.0.0</modelVersion>
     <name>Triones:CSI:Boot:SelfHosted</name>
-    <artifactId>selfhosted-spring-boot-starter</artifactId>
+    <artifactId>triones-csi-selfhosted-spring-boot-starter</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

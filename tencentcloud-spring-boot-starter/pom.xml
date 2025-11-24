@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <name>Triones:CSI:Boot:TencentCloud</name>
-    <artifactId>tencentcloud-spring-boot-starter</artifactId>
+    <artifactId>triones-csi-tencentcloud-spring-boot-starter</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
