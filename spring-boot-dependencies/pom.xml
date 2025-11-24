@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.trionesdev.csi</groupId>
-    <artifactId>triones-csi-spring-boot-dependencies</artifactId>
+    <artifactId>spring-boot-dependencies</artifactId>
     <version>3.0.0-SNAPSHOT</version>
 
     <properties>
@@ -124,8 +124,8 @@
 
     <distributionManagement>
         <snapshotRepository>
-            <id>moensun</id>
-            <url>https://nexus.moensun.com/repository/maven-snapshots/</url>
+            <id>trionesdev</id>
+            <url>https://maven.cnb.cool/trionesdev/mvn/-/packages/</url>
         </snapshotRepository>
     </distributionManagement>
 
