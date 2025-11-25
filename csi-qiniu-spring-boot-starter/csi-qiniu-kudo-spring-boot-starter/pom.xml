@@ -24,7 +24,7 @@
         </dependency>
         <dependency>
             <groupId>com.trionesdev.csi</groupId>
-            <artifactId>triones-csi-qiniu-kodo</artifactId>
+            <artifactId>csi-qiniu-kodo</artifactId>
         </dependency>
     </dependencies>
 </project>

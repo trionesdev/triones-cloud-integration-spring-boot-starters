@@ -28,7 +28,7 @@
         </dependency>
         <dependency>
             <groupId>com.trionesdev.csi</groupId>
-            <artifactId>triones-csi-tencentcloud-sms</artifactId>
+            <artifactId>csi-tencentcloud-sms</artifactId>
         </dependency>
     </dependencies>
 

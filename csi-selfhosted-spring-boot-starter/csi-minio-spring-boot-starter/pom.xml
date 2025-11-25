@@ -27,7 +27,7 @@
         </dependency>
         <dependency>
             <groupId>com.trionesdev.csi</groupId>
-            <artifactId>triones-csi-minio</artifactId>
+            <artifactId>csi-minio</artifactId>
         </dependency>
 
     </dependencies>

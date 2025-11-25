@@ -29,7 +29,7 @@
         </dependency>
         <dependency>
             <groupId>com.trionesdev.csi</groupId>
-            <artifactId>triones-csi-tencentcloud-ocr</artifactId>
+            <artifactId>csi-tencentcloud-ocr</artifactId>
         </dependency>
     </dependencies>
 </project>

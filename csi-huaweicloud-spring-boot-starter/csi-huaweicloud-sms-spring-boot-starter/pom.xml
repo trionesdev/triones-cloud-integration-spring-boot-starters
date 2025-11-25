@@ -27,7 +27,7 @@
         </dependency>
         <dependency>
             <groupId>com.trionesdev.csi</groupId>
-            <artifactId>triones-csi-huaweicloud-sms</artifactId>
+            <artifactId>csi-huaweicloud-sms</artifactId>
         </dependency>
     </dependencies>
 

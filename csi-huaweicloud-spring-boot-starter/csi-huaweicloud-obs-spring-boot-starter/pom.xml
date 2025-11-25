@@ -28,7 +28,7 @@
         </dependency>
         <dependency>
             <groupId>com.trionesdev.csi</groupId>
-            <artifactId>triones-csi-huaweicloud-obs</artifactId>
+            <artifactId>csi-huaweicloud-obs</artifactId>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>

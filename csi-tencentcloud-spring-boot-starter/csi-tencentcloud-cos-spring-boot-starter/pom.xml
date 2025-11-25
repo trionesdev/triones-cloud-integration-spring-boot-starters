@@ -30,7 +30,7 @@
     </dependency>
     <dependency>
       <groupId>com.trionesdev.csi</groupId>
-      <artifactId>triones-csi-tencentcloud-cos</artifactId>
+      <artifactId>csi-tencentcloud-cos</artifactId>
     </dependency>
   </dependencies>
 </project>

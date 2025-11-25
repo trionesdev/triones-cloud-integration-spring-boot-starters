@@ -31,7 +31,7 @@
         </dependency>
         <dependency>
             <groupId>com.trionesdev.csi</groupId>
-            <artifactId>triones-csi-tencentcloud-ses</artifactId>
+            <artifactId>csi-tencentcloud-ses</artifactId>
         </dependency>
     </dependencies>
 

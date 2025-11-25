@@ -35,7 +35,7 @@
         </dependency>
         <dependency>
             <groupId>com.trionesdev.csi</groupId>
-            <artifactId>triones-csi-aliyun-sms</artifactId>
+            <artifactId>csi-aliyun-sms</artifactId>
         </dependency>
     </dependencies>
 
