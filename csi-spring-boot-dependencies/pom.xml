@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.trionesdev.csi</groupId>
+    <artifactId>csi-spring-boot-dependencies</artifactId>
+    <version>3.0.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>3.3.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+                <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>triones-csi-dependencies</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!--            aliyun-->
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>csi-aliyun-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>csi-aliyun-oss-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>csi-aliyun-sms-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--            aliyun-->
+            <!--huaweicloud-->
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>csi-huaweicloud-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>csi-huaweicloud-obs-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>csi-huaweicloud-sms-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--huaweicloud-->
+            <!--        tencentcloud-->
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>csi-tencentcloud-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>csi-tencentcloud-cos-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>csi-tencentcloud-sms-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>csi-tencentcloud-ses-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>csi-tencentcloud-ocr-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--        tencentcloud-->
+            <!--            quniu-->
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>csi-qiniu-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>csi-qiniu-kudo-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--            quniu-->
+
+            <!--            azure-->
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>csi-azure-blob-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!--            azure-->
+
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>csi-minio-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>trionesdev</id>
+            <url>https://maven.cnb.cool/trionesdev/mvn/-/packages/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.16.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <releaseProfiles>release</releaseProfiles>
+                    <goals>deploy</goals>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>trionesdev</id>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>trionesdev</id>
+                    <url>https://maven.cnb.cool/trionesdev/mvn/-/packages/</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <id>central</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.3.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- （Option）2.  javadoc jar -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.5.0</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.7.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>
