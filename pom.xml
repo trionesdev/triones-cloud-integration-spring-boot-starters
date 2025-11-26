@@ -10,23 +10,9 @@
     <version>3.0.0-SNAPSHOT</version>
     <name>Triones:CloudIntegrations:BootStarters</name>
     <modules>
-        <module>csi-aliyun-spring-boot-starter</module>
-        <module>csi-aliyun-spring-boot-starter/csi-aliyun-oss-spring-boot-starter</module>
-        <module>csi-aliyun-spring-boot-starter/csi-aliyun-sms-spring-boot-starter</module>
-        <module>csi-huaweicloud-spring-boot-starter</module>
-        <module>csi-huaweicloud-spring-boot-starter/csi-huaweicloud-obs-spring-boot-starter</module>
-        <module>csi-huaweicloud-spring-boot-starter/csi-huaweicloud-sms-spring-boot-starter</module>
-        <module>csi-tencentcloud-spring-boot-starter</module>
-        <module>csi-tencentcloud-spring-boot-starter/csi-tencentcloud-cos-spring-boot-starter</module>
-        <module>csi-tencentcloud-spring-boot-starter/csi-tencentcloud-sms-spring-boot-starter</module>
-        <module>csi-tencentcloud-spring-boot-starter/csi-tencentcloud-ocr-spring-boot-starter</module>
-        <module>csi-qiniu-spring-boot-starter</module>
-        <module>csi-qiniu-spring-boot-starter/csi-qiniu-kudo-spring-boot-starter</module>
-        <module>csi-azure-spring-boot-starter</module>
-        <module>csi-azure-spring-boot-starter/csi-azure-blob-spring-boot-starter</module>
-        <module>csi-selfhosted-spring-boot-starter</module>
-        <module>csi-tencentcloud-spring-boot-starter/csi-tencentcloud-ses-spring-boot-starter</module>
+
         <module>csi-spring-boot-dependencies</module>
+        <module>starter</module>
 
     </modules>
 
@@ -35,19 +21,6 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.trionesdev.csi</groupId>
-                <artifactId>csi-spring-boot-dependencies</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
 
 
     <build>
