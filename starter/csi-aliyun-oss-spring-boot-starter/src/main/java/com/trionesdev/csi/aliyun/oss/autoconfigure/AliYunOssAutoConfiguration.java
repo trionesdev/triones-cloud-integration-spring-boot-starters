@@ -17,7 +17,7 @@ import static com.trionesdev.csi.aliyun.oss.autoconfigure.AliYunOssProperties.PR
         AliYunOssProperties.class
 })
 public class AliYunOssAutoConfiguration {
-    private AliYunOssProperties ossProperties;
+    private final AliYunOssProperties ossProperties;
 
 //    @Override
 //    public void postProcessBeanFactory(@NotNull ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {

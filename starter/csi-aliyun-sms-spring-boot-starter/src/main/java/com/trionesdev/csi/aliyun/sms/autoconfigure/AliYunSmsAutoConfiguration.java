@@ -15,7 +15,7 @@ import static com.trionesdev.csi.aliyun.sms.autoconfigure.AliYunSmsProperties.PR
 @ConditionalOnProperty(prefix = PREFIX, value = {"enabled"}, havingValue = "true")
 @EnableConfigurationProperties(value = {AliYunSmsProperties.class})
 public class AliYunSmsAutoConfiguration   {
-    private AliYunSmsProperties aliYunSmsProperties;
+    private final AliYunSmsProperties aliYunSmsProperties;
 
 //    @SneakyThrows
 //    @Override
