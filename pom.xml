@@ -12,7 +12,7 @@
     <modules>
 
         <module>csi-spring-boot-dependencies</module>
-        <module>starter</module>
+        <module>spring-boot-starter</module>
 
     </modules>
 
