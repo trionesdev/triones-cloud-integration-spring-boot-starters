@@ -20,6 +20,21 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>3.3.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+                <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.34</version>
+            </dependency>
+
+
+            <dependency>
                 <groupId>com.trionesdev.csi</groupId>
                 <artifactId>csi-dependencies</artifactId>
                 <version>0.0.2-SNAPSHOT</version>
