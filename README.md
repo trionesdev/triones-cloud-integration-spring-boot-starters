@@ -47,7 +47,7 @@
     <dependencies>
         <dependency>
             <groupId>com.trionesdev.csi</groupId>
-            <artifactId>triones-csi-spring-boot-dependencies</artifactId>
+            <artifactId>csi-spring-boot-dependencies</artifactId>
             <version>版本号</version>
             <type>pom</type>
             <scope>import</scope>
