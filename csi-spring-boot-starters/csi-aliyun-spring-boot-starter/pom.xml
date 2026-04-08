@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.trionesdev.csi</groupId>
+        <artifactId>csi-spring-boot-starters</artifactId>
+        <version>3.0.2-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>csi-aliyun-spring-boot-starter</artifactId>
+    <packaging>jar</packaging>
+    <name>Triones:CSI:Boot:AliYun</name>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.trionesdev.csi</groupId>
+            <artifactId>csi-aliyun-oss-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.trionesdev.csi</groupId>
+            <artifactId>csi-aliyun-sms-spring-boot-starter</artifactId>
+        </dependency>
+    </dependencies>
+</project>

@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.trionesdev.csi</groupId>
-    <artifactId>csi-spring-boot-starters</artifactId>
+    <artifactId>csi-spring-boot</artifactId>
     <packaging>pom</packaging>
     <version>3.0.2-SNAPSHOT</version>
-    <name>Triones:CloudIntegrations:BootStarters</name>
+    <name>Triones:CloudServiceIntegrations:SpringBoot</name>
     <modules>
 
         <module>csi-spring-boot-dependencies</module>
-        <module>spring-boot-starter</module>
+        <module>csi-spring-boot-starters</module>
 
     </modules>
 
@@ -24,6 +24,15 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>3.3.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+                <optional>true</optional>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
