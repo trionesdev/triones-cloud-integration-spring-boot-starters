@@ -21,8 +21,8 @@
     - [BLOB 块存储](csi-spring-boot-starters/csi-azure-blob-spring-boot-starter)
 
 - 自部署服务
-    - [MinIO](csi-spring-boot-starters/csi-minio-spring-boot-starter)
-    - [RustFS](csi-spring-boot-starters/csi-rustfs-spring-boot-starter)
+    - [Minio](csi-spring-boot-starters/csi-minio-spring-boot-starter)
+    - [Rustfs](csi-spring-boot-starters/csi-rustfs-spring-boot-starter)
 
 ## 使用
 
