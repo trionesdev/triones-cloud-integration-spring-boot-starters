@@ -7,12 +7,13 @@
     <groupId>com.trionesdev.csi</groupId>
     <artifactId>csi-spring-boot</artifactId>
     <packaging>pom</packaging>
-    <version>3.0.2-SNAPSHOT</version>
+    <version>3.0.3-SNAPSHOT</version>
     <name>Triones:CloudServiceIntegrations:SpringBoot</name>
     <modules>
 
         <module>csi-spring-boot-dependencies</module>
         <module>csi-spring-boot-starters</module>
+
 
     </modules>
 

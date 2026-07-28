@@ -1,13 +1,21 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.trionesdev.csi</groupId>
         <artifactId>csi-spring-boot-starters</artifactId>
         <version>3.0.3-SNAPSHOT</version>
     </parent>
-    <artifactId>csi-minio-spring-boot-starter</artifactId>
-    <name>Triones:CSI:Boot:SelfHosted:Minio</name>
+    <name>Triones:CSI:Boot:SelfHosted:RustFS</name>
+    <artifactId>csi-rustfs-spring-boot-starter</artifactId>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -26,7 +34,11 @@
         </dependency>
         <dependency>
             <groupId>com.trionesdev.csi</groupId>
-            <artifactId>csi-minio</artifactId>
+            <artifactId>csi-rustfs</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
 
     </dependencies>

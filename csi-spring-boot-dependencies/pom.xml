@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.trionesdev.csi</groupId>
         <artifactId>csi-spring-boot</artifactId>
-        <version>3.0.2-SNAPSHOT</version>
+        <version>3.0.3-SNAPSHOT</version>
     </parent>
 
     <artifactId>csi-spring-boot-dependencies</artifactId>
@@ -23,7 +23,7 @@
             <dependency>
                 <groupId>com.trionesdev.csi</groupId>
                 <artifactId>csi-dependencies</artifactId>
-                <version>0.0.2-SNAPSHOT</version>
+                <version>0.0.3-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
