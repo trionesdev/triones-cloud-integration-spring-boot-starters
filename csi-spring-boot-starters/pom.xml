@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>csi-spring-boot-starters</artifactId>
-    <name>Triones:CloudServiceIntegrations:SpringBootDependencies</name>
+    <name>Triones:CloudServiceIntegrations:Starters</name>
     <packaging>pom</packaging>
 
     <modules>
@@ -38,6 +38,7 @@
         <module>csi-selfhosted-spring-boot-starter</module>
         <module>csi-minio-spring-boot-starter</module>
         <module>csi-rustfs-spring-boot-starter</module>
+        <module>csi-localstorage-spring-boot-starter</module>
     </modules>
 
     <properties>

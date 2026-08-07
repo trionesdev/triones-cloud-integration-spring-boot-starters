@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>csi-spring-boot-dependencies</artifactId>
-    <name>Triones:CloudServiceIntegrations:SpringBootStarters</name>
+    <name>Triones:CloudServiceIntegrations:Dependencies</name>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -119,6 +119,11 @@
             <dependency>
                 <groupId>com.trionesdev.csi</groupId>
                 <artifactId>csi-rustfs-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.trionesdev.csi</groupId>
+                <artifactId>csi-localstorage-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
